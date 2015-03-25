@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamLand", "DreamLand\DreamLand\DreamLand.csproj", "{29F0CBF9-DCB0-49AD-9E6B-23B3176DCDFD}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "DreamLandContent", "DreamLand\DreamLandContent\DreamLandContent.contentproj", "{1340595F-1DFB-40BB-AED4-5F4D1F777607}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29F0CBF9-DCB0-49AD-9E6B-23B3176DCDFD}.Debug|x86.ActiveCfg = Debug|x86
+		{29F0CBF9-DCB0-49AD-9E6B-23B3176DCDFD}.Debug|x86.Build.0 = Debug|x86
+		{29F0CBF9-DCB0-49AD-9E6B-23B3176DCDFD}.Release|x86.ActiveCfg = Release|x86
+		{29F0CBF9-DCB0-49AD-9E6B-23B3176DCDFD}.Release|x86.Build.0 = Release|x86
+		{1340595F-1DFB-40BB-AED4-5F4D1F777607}.Debug|x86.ActiveCfg = Debug|x86
+		{1340595F-1DFB-40BB-AED4-5F4D1F777607}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
