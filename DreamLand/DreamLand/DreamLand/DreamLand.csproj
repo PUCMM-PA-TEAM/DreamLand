@@ -76,6 +76,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <Compile Include="Scripts\classes\Animation.cs" />
     <Compile Include="Scripts\classes\Character.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Scripts\PlayerKeyboardControl.cs" />
     <Compile Include="Scripts\Sprite.cs" />
 >>>>>>> add visual studio files
+=======
+>>>>>>> c8f956de214eae4bed7e126e41d0ed4a08477702
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

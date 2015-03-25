@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 using DreamLand.Scripts.classes;
 >>>>>>> add visual studio files
+=======
+>>>>>>> c8f956de214eae4bed7e126e41d0ed4a08477702
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -48,12 +51,15 @@ namespace DreamLand {
 
             // TODO: use this.Content to load your game content here
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             //Character character = new Character();
             //character.Damage = 5;
             //int x = character.Damage;
 
 >>>>>>> add visual studio files
+=======
+>>>>>>> c8f956de214eae4bed7e126e41d0ed4a08477702
         }
 
         /// <summary>
