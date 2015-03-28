@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.GameObjects {
     class GameObject{
         public Transform Transform { get; set; }
-
+      
         public virtual void Init()
         {
             

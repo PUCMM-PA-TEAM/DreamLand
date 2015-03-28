@@ -18,7 +18,7 @@ namespace DreamLand.GameObjects {
             _speed = 5f;
             Transform = new Transform();
             Transform.Position = new Vector2(300, 200);
-            _inputController = new KeyboardInputController(ref _direction);
+            _inputController = new KeyboardInputController();
         }
 
         public override void LoadContent(ContentManager content, string texturePath)
@@ -34,7 +34,7 @@ namespace DreamLand.GameObjects {
 
         public override void Draw(SpriteBatch spriteBatch) {
             
-            spriteBatch.Draw(Sprite.Texture, Transform.Position, new Rectangle(0,128*5, 128, 128), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Sprite.Texture, Transform.Position, new Rectangle(0,128*8, 128, 128), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

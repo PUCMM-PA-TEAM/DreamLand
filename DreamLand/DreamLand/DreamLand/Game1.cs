@@ -17,6 +17,7 @@ namespace DreamLand {
     public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         private GameObject player;
 
         public Game1() {
@@ -48,6 +49,8 @@ namespace DreamLand {
             // TODO: use this.Content to load your game content here
             Texture2D texture2D = Content.Load<Texture2D>("Girl");
             player.LoadContent(Content, "Girl");
+            
+           
         }
 
         /// <summary>

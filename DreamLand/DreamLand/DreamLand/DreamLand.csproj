@@ -83,7 +83,7 @@
     <Compile Include="Scripts\classes\Transform.cs" />
     <Compile Include="Scripts\classes\XNAScript.cs" />
     <Compile Include="Scripts\KeyboardInputController.cs" />
-    <Compile Include="Scripts\Sprite.cs" />
+    <Compile Include="Scripts\classes\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -20,10 +20,10 @@ namespace DreamLand.GameObjects {
 
         }
 
-        public virtual void Update(GameTime gameTime) {
+        public void Update(GameTime gameTime) {
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch) {
 
         }
     }

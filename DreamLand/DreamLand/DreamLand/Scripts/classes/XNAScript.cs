@@ -7,7 +7,6 @@ namespace DreamLand.Scripts.classes {
     {
         void Init();
         void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch);
 
     }
 }
