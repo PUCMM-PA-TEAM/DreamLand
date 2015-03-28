@@ -14,7 +14,5 @@ namespace DreamLand.Scripts.classes {
         public int Speed { get; set; }
         public int Level { get; set; }
         public int Damage { get; set; }
-
-
     }
 }

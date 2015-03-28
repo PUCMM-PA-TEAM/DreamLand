@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DreamLand.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -16,6 +17,7 @@ namespace DreamLand {
     public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private GameObject player;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -30,7 +32,8 @@ namespace DreamLand {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-
+            player = new Player();
+           player.Init();
             base.Initialize();
         }
 
@@ -43,6 +46,8 @@ namespace DreamLand {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Texture2D texture2D = Content.Load<Texture2D>("Girl");
+            player.LoadContent(Content, "Girl");
         }
 
         /// <summary>
@@ -62,8 +67,9 @@ namespace DreamLand {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            
             // TODO: Add your update logic here
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -76,7 +82,9 @@ namespace DreamLand {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            player.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
