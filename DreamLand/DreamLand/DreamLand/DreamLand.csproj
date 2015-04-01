@@ -72,18 +72,15 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\MainBackground.cs" />
-    <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="Classes\Character.cs" />
+    <Compile Include="GameObject\IGameObject.cs" />
+    <Compile Include="GameObject\KeyboardInputController.cs" />
+    <Compile Include="GameObject\Player.cs" />
+    <Compile Include="GameObject\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Scripts\classes\Animation.cs" />
-    <Compile Include="Scripts\classes\Character.cs" />
-    <Compile Include="Scripts\classes\Transform.cs" />
-    <Compile Include="Scripts\classes\XNAScript.cs" />
-    <Compile Include="Scripts\KeyboardInputController.cs" />
-    <Compile Include="Scripts\classes\Sprite.cs" />
+    <Compile Include="Scripts\Animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
