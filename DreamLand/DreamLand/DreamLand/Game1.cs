@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using DreamLand.GameObject;
 using DreamLand.Scripts;
+using DreamLand.Scenes;
 
 namespace DreamLand
 {
@@ -27,6 +28,10 @@ namespace DreamLand
         Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
         Rectangle destionationRect = new Rectangle(0, 0, 800, 480);
 
+        private int LEFT_BORDER;
+        private int RIGHT_BORDER;
+        Scene intoTheWoods = new Scene();
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -42,6 +47,8 @@ namespace DreamLand
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            LEFT_BORDER = 0;
+            RIGHT_BORDER = GraphicsDevice.Viewport.Width;
             //player.Initalize();
             base.Initialize();
         }
@@ -59,8 +66,12 @@ namespace DreamLand
             
             //  Load Player assets
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
-            background = Content.Load<Texture2D>("Background");
+            background = Content.Load<Texture2D>("Gothic");
 
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
+            intoTheWoods.Initalize();
             player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 350));
         }
@@ -86,11 +97,16 @@ namespace DreamLand
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (player.Position.X > GraphicsDevice.Viewport.Width) {
-                player.Position = new Vector2(100, 350);
+            //if (player.Position.X > RIGHT_BORDER) {
+            //    player.Position = new Vector2(100, 350);
+            //    sourceRect.X += 600;
+            //}
 
-                sourceRect.X += 600;
-            }
+            //if (player.Position.X < LEFT_BORDER) {
+            //    player.Position = new Vector2(600, 350);
+            //    sourceRect.X -= 600;
+            //}
+            intoTheWoods.Update(gameTime, player);
 
             player.Update(gameTime);
 
@@ -108,7 +124,8 @@ namespace DreamLand
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
+            //spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
+            intoTheWoods.Draw(spriteBatch);
             player.Draw(spriteBatch);
 
             spriteBatch.End();
