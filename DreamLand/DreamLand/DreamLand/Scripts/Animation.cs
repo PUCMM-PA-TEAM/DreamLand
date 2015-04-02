@@ -22,7 +22,9 @@ namespace DreamLand.Scripts
         public bool Active;
         public bool Looping;
         public Vector2 Position;
+
         public List<int> Frames = new List<int>();
+        
         public SpriteEffects Effect = SpriteEffects.None;
 
         public void Initialize(Texture2D texture, Vector2 position,
@@ -77,10 +79,12 @@ namespace DreamLand.Scripts
         {
             if (Active)
             {
-                spriteBatch.Draw(SpriteSheet,
+                spriteBatch.Draw(
+                    SpriteSheet,
                     destinationRect, 
                     sourceRect, 
-                    Color, 0f, 
+                    Color, 
+                    0f, 
                     Vector2.Zero, 
                     Effect,
                     0f);

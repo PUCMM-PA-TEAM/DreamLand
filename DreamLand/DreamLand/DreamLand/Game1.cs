@@ -20,8 +20,10 @@ namespace DreamLand
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         Player player;
         Texture2D background;
+
         Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
         Rectangle destionationRect = new Rectangle(0, 0, 800, 480);
 
@@ -86,6 +88,7 @@ namespace DreamLand
             // TODO: Add your update logic here
             if (player.Position.X > GraphicsDevice.Viewport.Width) {
                 player.Position = new Vector2(100, 350);
+
                 sourceRect.X += 600;
             }
 

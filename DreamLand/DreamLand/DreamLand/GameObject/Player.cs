@@ -24,6 +24,7 @@ namespace DreamLand.GameObject
 
         private Animation IdleAnim;
         private Animation WalkingAnim;
+        private Animation JumpingAnim;
     
         public bool IsAlive { get; set; }
 
@@ -66,6 +67,11 @@ namespace DreamLand.GameObject
             WalkingAnim.Frames.Add(FrameHeigth * 5);
             WalkingAnim.Frames.Add(FrameHeigth * 6);
 
+            JumpingAnim = new Animation();
+            JumpingAnim.Initialize(Sprite.Texture,
+                 Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
+            JumpingAnim.Frames.Add(FrameHeigth * 2);
+
             _AnimationController = IdleAnim;
         }
 
@@ -82,6 +88,7 @@ namespace DreamLand.GameObject
                 _Position.X -= Speed;
                 IdleAnim.Effect = SpriteEffects.None;
                 WalkingAnim.Effect = SpriteEffects.None;
+
                 _AnimationController = WalkingAnim;
             }
 
@@ -93,6 +100,12 @@ namespace DreamLand.GameObject
                 WalkingAnim.Effect = SpriteEffects.FlipHorizontally;
 
                 _AnimationController = WalkingAnim;
+            } 
+            
+            else if (currentKeyboardState.IsKeyDown(Keys.Space)) {
+                _Position.Y -= Speed;
+
+                _AnimationController = JumpingAnim;
             }
 
             else
