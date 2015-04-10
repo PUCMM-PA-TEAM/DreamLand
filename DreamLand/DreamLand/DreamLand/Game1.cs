@@ -23,6 +23,7 @@ namespace DreamLand
         SpriteBatch spriteBatch;
 
         Player player;
+        private Enemy enemy;
         Texture2D background;
 
         Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
@@ -32,6 +33,7 @@ namespace DreamLand
         private int RIGHT_BORDER;
         Scene intoTheWoods = new Scene();
         
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -66,14 +68,20 @@ namespace DreamLand
             
             //  Load Player assets
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
+            Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
             background = Content.Load<Texture2D>("Gothic");
 
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 01"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
+            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
+            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
             intoTheWoods.Initalize();
             player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 350));
+
+            enemy = new Enemy(new Sprite(enemySprite), 
+                new Vector2(600, 350));
         }
 
         /// <summary>
@@ -109,6 +117,7 @@ namespace DreamLand
             intoTheWoods.Update(gameTime, player);
 
             player.Update(gameTime);
+            enemy.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -124,8 +133,9 @@ namespace DreamLand
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            //spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-            intoTheWoods.Draw(spriteBatch);
+            spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
+            //intoTheWoods.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
 
             spriteBatch.End();

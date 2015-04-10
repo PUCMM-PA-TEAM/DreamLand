@@ -44,6 +44,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="woods.png">
+      <Name>woods</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Gothic.png">
       <Name>Gothic</Name>
       <Importer>TextureImporter</Importer>
@@ -51,18 +58,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Woods 01.png">
-      <Name>Woods 01</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Woods 02.png">
-      <Name>Woods 02</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Woods 03.png">
-      <Name>Woods 03</Name>
+    <Compile Include="Boss Dragon.png">
+      <Name>Boss Dragon</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

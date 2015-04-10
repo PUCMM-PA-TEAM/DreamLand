@@ -18,9 +18,9 @@ namespace DreamLand.GameObject
     class Player : Character, IGameObject
     {
         public Sprite Sprite { get; set; }
-        private Vector2 _Position;
-        private PlayerState _PlayerState;
-        private Animation _AnimationController;        
+        private Vector2 _position;
+        private PlayerState _playerState;
+        private Animation _animationController;        
 
         private Animation IdleAnim;
         private Animation WalkingAnim;
@@ -30,14 +30,14 @@ namespace DreamLand.GameObject
 
         public Vector2 Position
         {
-            get { return _Position; }
-            set { _Position = value; }
+            get { return _position; }
+            set { _position = value; }
         }
 
         public Animation AnimationController
         {
-            get { return _AnimationController; }
-            set { _AnimationController = value; }
+            get { return _animationController; }
+            set { _animationController = value; }
         }
 
         private KeyboardState currentKeyboardState;
@@ -46,10 +46,10 @@ namespace DreamLand.GameObject
         public Player(Sprite sprite, Vector2 position)
         {
             Sprite = sprite;
-            _Position = position;
+            _position = position;
             IsAlive = true;
             Health = 100;
-            _PlayerState = PlayerState.Idle;
+            _playerState = PlayerState.Idle;
             Speed = 5;
 
             int FrameWidth = 128;
@@ -72,7 +72,7 @@ namespace DreamLand.GameObject
                  Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
             JumpingAnim.Frames.Add(FrameHeigth * 2);
 
-            _AnimationController = IdleAnim;
+            _animationController = IdleAnim;
         }
 
         public void Initalize() {
@@ -85,39 +85,39 @@ namespace DreamLand.GameObject
             // Play Left Animation
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                _Position.X -= Speed;
+                _position.X -= Speed;
                 IdleAnim.Effect = SpriteEffects.None;
                 WalkingAnim.Effect = SpriteEffects.None;
 
-                _AnimationController = WalkingAnim;
+                _animationController = WalkingAnim;
             }
 
             // Play Right Animation
             else if (currentKeyboardState.IsKeyDown(Keys.Right))
             {
-                _Position.X += Speed;
+                _position.X += Speed;
                 IdleAnim.Effect = SpriteEffects.FlipHorizontally;
                 WalkingAnim.Effect = SpriteEffects.FlipHorizontally;
 
-                _AnimationController = WalkingAnim;
+                _animationController = WalkingAnim;
             } 
             
             else if (currentKeyboardState.IsKeyDown(Keys.Space)) {
-                _Position.Y -= Speed;
+                _position.Y -= Speed;
 
-                _AnimationController = JumpingAnim;
+                _animationController = JumpingAnim;
             }
 
             else
-                _AnimationController = IdleAnim;
+                _animationController = IdleAnim;
 
-            _AnimationController.Position = Position;
-            _AnimationController.Update(gameTime);
+            _animationController.Position = Position;
+            _animationController.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _AnimationController.Draw(spriteBatch);
+            _animationController.Draw(spriteBatch);
             //spriteBatch.Draw(Sprite.Texture, Position, 
             //    new Rectangle(0,128*8, 128, 128),
             //    Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
