@@ -24,10 +24,16 @@ namespace DreamLand
 
         Player player;
         private Enemy enemy;
+        private Enemy enemy_2;
         Texture2D background;
+        HealthBar player_health;
 
-        Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
-        Rectangle destionationRect = new Rectangle(0, 0, 800, 480);
+        HealthBar enemy_health;
+        
+       
+
+        Rectangle sourceRect = new Rectangle(0, 0, 800, 540);
+        Rectangle destionationRect = new Rectangle(0, 0, 800, 540);
 
         private int LEFT_BORDER;
         private int RIGHT_BORDER;
@@ -65,23 +71,32 @@ namespace DreamLand
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            
+
             //  Load Player assets
+            Texture2D healthbar = Content.Load<Texture2D>("health");
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
-            background = Content.Load<Texture2D>("Gothic");
+            Texture2D enemy2Sprite = Content.Load<Texture2D>("Boss Dragon");
+           background = Content.Load<Texture2D>("Gothic");
 
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
             //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
             //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
             intoTheWoods.Initalize();
-            player = new Player(new Sprite(playerSprite), 
+            player = new Player(new Sprite(playerSprite),
                 new Vector2(100, 350));
 
-            enemy = new Enemy(new Sprite(enemySprite), 
+            enemy = new Enemy(new Sprite(enemySprite),
                 new Vector2(600, 350));
+
+            enemy_2 = new Enemy(new Sprite(enemy2Sprite), new Vector2(500,350));
+           
+          
+
+           player_health = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
+           
         }
 
         /// <summary>
@@ -118,6 +133,14 @@ namespace DreamLand
 
             player.Update(gameTime);
             enemy.Update(gameTime);
+            enemy_2.Update(gameTime);
+
+           
+
+            
+            player_health.Update(gameTime);
+           
+            
 
             base.Update(gameTime);
         }
@@ -134,10 +157,12 @@ namespace DreamLand
             spriteBatch.Begin();
 
             spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-            //intoTheWoods.Draw(spriteBatch);
+           // intoTheWoods.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
-
+            enemy_2.Draw(spriteBatch);
+           player_health.Draw(spriteBatch);
+           
             spriteBatch.End();
             base.Draw(gameTime);
         }
