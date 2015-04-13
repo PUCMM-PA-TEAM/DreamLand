@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DreamLand.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -26,13 +27,8 @@ namespace DreamLand
         private Enemy enemy;
         Texture2D background;
 
-        Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
-        Rectangle destionationRect = new Rectangle(0, 0, 800, 480);
-
-        private int LEFT_BORDER;
-        private int RIGHT_BORDER;
         Scene intoTheWoods = new Scene();
-        
+        CombatEngine combatEngine = new CombatEngine(); 
 
         public Game1()
         {
@@ -49,9 +45,6 @@ namespace DreamLand
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            LEFT_BORDER = 0;
-            RIGHT_BORDER = GraphicsDevice.Viewport.Width;
-            //player.Initalize();
             base.Initialize();
         }
 
@@ -69,19 +62,19 @@ namespace DreamLand
             //  Load Player assets
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
-            background = Content.Load<Texture2D>("Gothic");
 
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods"));
-            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
-            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+
             intoTheWoods.Initalize();
             player = new Player(new Sprite(playerSprite), 
-                new Vector2(100, 350));
+                new Vector2(100, 360));
 
             enemy = new Enemy(new Sprite(enemySprite), 
                 new Vector2(600, 350));
+
+            combatEngine.Initialize(player, enemy, Content.Load<SpriteFont>("Courier New"));
         }
 
         /// <summary>
@@ -105,19 +98,12 @@ namespace DreamLand
                 this.Exit();
 
             // TODO: Add your update logic here
-            //if (player.Position.X > RIGHT_BORDER) {
-            //    player.Position = new Vector2(100, 350);
-            //    sourceRect.X += 600;
-            //}
-
-            //if (player.Position.X < LEFT_BORDER) {
-            //    player.Position = new Vector2(600, 350);
-            //    sourceRect.X -= 600;
-            //}
             intoTheWoods.Update(gameTime, player);
 
             player.Update(gameTime);
             enemy.Update(gameTime);
+
+            combatEngine.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -133,10 +119,12 @@ namespace DreamLand
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-            //intoTheWoods.Draw(spriteBatch);
+           // spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
+            intoTheWoods.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
+
+            combatEngine.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
