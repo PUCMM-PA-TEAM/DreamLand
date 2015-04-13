@@ -25,6 +25,9 @@ namespace DreamLand.GameObject
         private Animation IdleAnim;
         private Animation WalkingAnim;
         private Animation JumpingAnim;
+
+        
+
     
         public bool IsAlive { get; set; }
 
@@ -43,6 +46,8 @@ namespace DreamLand.GameObject
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
 
+        bool hasJumped;
+
         public Player(Sprite sprite, Vector2 position)
         {
             Sprite = sprite;
@@ -51,6 +56,9 @@ namespace DreamLand.GameObject
             Health = 100;
             _playerState = PlayerState.Idle;
             Speed = 5;
+
+            
+            
 
             int FrameWidth = 128;
             int FrameHeigth = 128;
@@ -78,7 +86,9 @@ namespace DreamLand.GameObject
         public void Initalize() {
         }
 
-        public void Update(GameTime gameTime) {            
+        public void Update(GameTime gameTime) { 
+           
+           
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
@@ -101,19 +111,35 @@ namespace DreamLand.GameObject
 
                 _animationController = WalkingAnim;
             } 
-            
-            else if (currentKeyboardState.IsKeyDown(Keys.Space)) {
-                _position.Y -= Speed;
-
-                _animationController = JumpingAnim;
-            }
 
             else
                 _animationController = IdleAnim;
 
             _animationController.Position = Position;
             _animationController.Update(gameTime);
+            
+            if (currentKeyboardState.IsKeyDown(Keys.Space) && hasJumped == false) {
+               
+                _position.Y -= 100f;
+                
+                hasJumped = true;
+                _animationController = JumpingAnim;
+            }
+            else if(hasJumped == true)
+            {
+                float i=20;
+                _position.Y += 0.15f * i;
+            
+            }
+
+            if (_position.Y > 350)
+            {
+                hasJumped = false;
+            }
+           
         }
+
+
 
         public void Draw(SpriteBatch spriteBatch)
         {

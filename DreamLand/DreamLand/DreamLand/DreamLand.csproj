@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Classes\Character.cs" />
     <Compile Include="GameObject\Enemy.cs" />
+    <Compile Include="GameObject\HealthBar.cs" />
     <Compile Include="GameObject\IGameObject.cs" />
     <Compile Include="GameObject\KeyboardInputController.cs" />
     <Compile Include="GameObject\Player.cs" />
