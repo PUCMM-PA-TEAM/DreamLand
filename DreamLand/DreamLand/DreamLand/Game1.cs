@@ -77,21 +77,18 @@ namespace DreamLand
             
           // background = Content.Load<Texture2D>("Gothic");
 
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
-            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 02"));
-            //intoTheWoods.Stages.Add(Content.Load<Texture2D>("Woods 03"));
-            intoTheWoods.Initalize();
-            player = new Player(new Sprite(playerSprite),
-                new Vector2(100, 350));
-
+           
+     
+           // intoTheWoods.Initalize();
+          
 
             intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
             intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
             intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
 
-            intoTheWoods.Initalize();
+            //intoTheWoods.Initalize();
             player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 360));
 
@@ -99,10 +96,7 @@ namespace DreamLand
                 new Vector2(600, 350));
 
 
-            
-           
-          
-
+         
            player_health = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
            
 
