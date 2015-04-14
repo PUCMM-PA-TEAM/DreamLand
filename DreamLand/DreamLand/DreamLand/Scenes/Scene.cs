@@ -10,8 +10,9 @@ namespace DreamLand.Scenes {
         public List<Texture2D> Stages = new List<Texture2D>();
         private int LEFT_BORDER = 0;
         private int RIGHT_BORDER = 800;
-        Rectangle sourceRect = new Rectangle(0, 0, 800, 480);
-        Rectangle destionationRect = new Rectangle(0, 0, 800, 480);
+
+        Rectangle sourceRect = new Rectangle(0, 0, 800, 600);
+        Rectangle destionationRect = new Rectangle(0, 0, 800, 540);
         private Texture2D currentStage;
 
         private int currentFrame = 0;

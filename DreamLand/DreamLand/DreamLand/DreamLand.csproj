@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Character.cs" />
+    <Compile Include="Engine\CombatEngine.cs" />
     <Compile Include="GameObject\Enemy.cs" />
     <Compile Include="GameObject\HealthBar.cs" />
     <Compile Include="GameObject\IGameObject.cs" />

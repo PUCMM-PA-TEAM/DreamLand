@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DreamLand.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -28,17 +29,16 @@ namespace DreamLand
         Texture2D background;
         HealthBar player_health;
 
-        HealthBar enemy_health;
-        
-       
 
+       
         Rectangle sourceRect = new Rectangle(0, 0, 800, 540);
         Rectangle destionationRect = new Rectangle(0, 0, 800, 540);
 
         private int LEFT_BORDER;
         private int RIGHT_BORDER;
+
         Scene intoTheWoods = new Scene();
-        
+        CombatEngine combatEngine = new CombatEngine(); 
 
         public Game1()
         {
@@ -55,9 +55,6 @@ namespace DreamLand
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            LEFT_BORDER = 0;
-            RIGHT_BORDER = GraphicsDevice.Viewport.Width;
-            //player.Initalize();
             base.Initialize();
         }
 
@@ -76,8 +73,9 @@ namespace DreamLand
             Texture2D healthbar = Content.Load<Texture2D>("health");
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
-            Texture2D enemy2Sprite = Content.Load<Texture2D>("Boss Dragon");
-           background = Content.Load<Texture2D>("Gothic");
+
+            
+          // background = Content.Load<Texture2D>("Gothic");
 
             intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
             intoTheWoods.Stages.Add(Content.Load<Texture2D>("Fantasy"));
@@ -88,15 +86,28 @@ namespace DreamLand
             player = new Player(new Sprite(playerSprite),
                 new Vector2(100, 350));
 
+
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+
+            intoTheWoods.Initalize();
+            player = new Player(new Sprite(playerSprite), 
+                new Vector2(100, 360));
+
             enemy = new Enemy(new Sprite(enemySprite),
                 new Vector2(600, 350));
 
-            enemy_2 = new Enemy(new Sprite(enemy2Sprite), new Vector2(500,350));
+
+            
            
           
 
            player_health = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
            
+
+            combatEngine.Initialize(player, enemy, Content.Load<SpriteFont>("Courier New"));
+
         }
 
         /// <summary>
@@ -120,27 +131,13 @@ namespace DreamLand
                 this.Exit();
 
             // TODO: Add your update logic here
-            //if (player.Position.X > RIGHT_BORDER) {
-            //    player.Position = new Vector2(100, 350);
-            //    sourceRect.X += 600;
-            //}
-
-            //if (player.Position.X < LEFT_BORDER) {
-            //    player.Position = new Vector2(600, 350);
-            //    sourceRect.X -= 600;
-            //}
             intoTheWoods.Update(gameTime, player);
 
             player.Update(gameTime);
             enemy.Update(gameTime);
-            enemy_2.Update(gameTime);
-
            
-
-            
-            player_health.Update(gameTime);
-           
-            
+   
+            combatEngine.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -156,13 +153,15 @@ namespace DreamLand
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-           // intoTheWoods.Draw(spriteBatch);
+
+           // spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
+            intoTheWoods.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            enemy_2.Draw(spriteBatch);
-           player_health.Draw(spriteBatch);
-           
+
+            combatEngine.Draw(spriteBatch);
+
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
