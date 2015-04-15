@@ -83,6 +83,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\SceneTransition.cs" />
+    <Compile Include="Scenes\Wood01.cs" />
+    <Compile Include="Scenes\Wood02.cs" />
     <Compile Include="Scripts\Animation.cs" />
   </ItemGroup>
   <ItemGroup>

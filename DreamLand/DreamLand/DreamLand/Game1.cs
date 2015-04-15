@@ -27,7 +27,7 @@ namespace DreamLand
         private Enemy enemy;
         Texture2D background;
 
-        Scene intoTheWoods = new Scene();
+        SceneTransition World = new SceneTransition();
         CombatEngine combatEngine = new CombatEngine(); 
 
         public Game1()
@@ -63,11 +63,20 @@ namespace DreamLand
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
 
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
-            intoTheWoods.Stages.Add(Content.Load<Texture2D>("woods01"));
+            World.Scenes.Add(new Wood01()
+            {
+                Sprite = Content.Load<Texture2D>("wood 01")
+            });
 
-            intoTheWoods.Initalize();
+            World.Scenes.Add(new Wood02() {
+                Sprite = Content.Load<Texture2D>("wood 02")
+            });
+
+            World.Scenes.Add(new Wood01() {
+                Sprite = Content.Load<Texture2D>("Background")
+            });
+
+            World.Initalize();
             player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 360));
 
@@ -98,7 +107,7 @@ namespace DreamLand
                 this.Exit();
 
             // TODO: Add your update logic here
-            intoTheWoods.Update(gameTime, player);
+            World.Update(gameTime, player);
 
             player.Update(gameTime);
             enemy.Update(gameTime);
@@ -120,7 +129,7 @@ namespace DreamLand
             spriteBatch.Begin();
 
            // spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-            intoTheWoods.Draw(spriteBatch);
+            World.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
 

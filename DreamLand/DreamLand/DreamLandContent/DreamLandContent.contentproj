@@ -58,8 +58,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="woods01.png">
-      <Name>woods01</Name>
+    <Compile Include="wood 01.png">
+      <Name>wood 01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="wood 02.png">
+      <Name>wood 02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
