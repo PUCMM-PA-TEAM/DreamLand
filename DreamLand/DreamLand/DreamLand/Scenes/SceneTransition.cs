@@ -56,6 +56,7 @@ namespace DreamLand.Scenes {
             }
 
             _currentSprite = Scenes[_currentScene].Sprite;
+            Scenes[_currentScene].SourceRect = _sourceRect;
             Scenes[_currentScene].Update(gameTime);
         }
 

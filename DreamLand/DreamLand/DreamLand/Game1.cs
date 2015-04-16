@@ -23,20 +23,12 @@ namespace DreamLand
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Player player;
-        private Enemy enemy;
-        private Enemy enemy_2;
-        Texture2D background;
-        HealthBar player_health;
+        Player _player;
+        private Enemy _enemy;
+        HealthBar _playerHealth;
 
-        Rectangle sourceRect = new Rectangle(0, 0, 800, 540);
-        Rectangle destionationRect = new Rectangle(0, 0, 800, 540);
-
-        private int LEFT_BORDER;
-        private int RIGHT_BORDER;
-
-        SceneTransition World = new SceneTransition();
-        CombatEngine combatEngine = new CombatEngine(); 
+        SceneTransition _world = new SceneTransition();
+        CombatEngine _combatEngine = new CombatEngine(); 
 
         public Game1()
         {
@@ -72,31 +64,32 @@ namespace DreamLand
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
 
-            World.Scenes.Add(new Wood01()
+            _world.Scenes.Add(new Wood01()
             {
                 Sprite = Content.Load<Texture2D>("wood 01")
             });
 
-            World.Scenes.Add(new Wood02() {
-                Sprite = Content.Load<Texture2D>("wood 02")
+            _world.Scenes.Add(new Wood02() {
+                Sprite = Content.Load<Texture2D>("wood 02"),
+                Enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 300))
             });
 
-            World.Scenes.Add(new Wood01() {
+            _world.Scenes.Add(new Wood01() {
                 Sprite = Content.Load<Texture2D>("Background")
             });
 
-            World.Initalize();
+            _world.Initalize();
 
-            player = new Player(new Sprite(playerSprite), 
+            _player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 360));
 
-            enemy = new Enemy(new Sprite(enemySprite),
-                new Vector2(600, 350));
+            //enemy = new Enemy(new Sprite(enemySprite),
+            //    new Vector2(600, 350));
          
-           player_health = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
+           _playerHealth = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
            
 
-            combatEngine.Initialize(player, enemy, Content.Load<SpriteFont>("Courier New"));
+//            _combatEngine.Initialize(_player, _enemy, Content.Load<SpriteFont>("Courier New"));
 
         }
 
@@ -121,13 +114,13 @@ namespace DreamLand
                 this.Exit();
 
             // TODO: Add your update logic here
-            World.Update(gameTime, player);
+            _world.Update(gameTime, _player);
 
-            player.Update(gameTime);
-            enemy.Update(gameTime);
+            _player.Update(gameTime);
+            //enemy.Update(gameTime);
            
    
-            combatEngine.Update(gameTime);
+           // _combatEngine.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -145,12 +138,12 @@ namespace DreamLand
 
 
            // spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
-            World.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            _world.Draw(spriteBatch);
+            //enemy.Draw(spriteBatch);
+            _player.Draw(spriteBatch);
 
-            combatEngine.Draw(spriteBatch);
-            player_health.Draw(spriteBatch);
+            //combatEngine.Draw(spriteBatch);
+            //player_health.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

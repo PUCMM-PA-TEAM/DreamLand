@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.Scenes {
     abstract class Scene
     {
+        private Rectangle _sourceRect;
         private Texture2D _texture2D;
 
         public Texture2D Sprite
@@ -29,6 +30,11 @@ namespace DreamLand.Scenes {
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             
+        }
+
+        public Rectangle SourceRect {
+            get { return _sourceRect; }
+            set { _sourceRect = value; }
         }
     }
 }
