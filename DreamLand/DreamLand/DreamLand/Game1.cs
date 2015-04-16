@@ -86,9 +86,6 @@ namespace DreamLand
             });
 
             World.Initalize();
-            
-          // background = Content.Load<Texture2D>("Gothic");
-
 
             player = new Player(new Sprite(playerSprite), 
                 new Vector2(100, 360));
@@ -153,7 +150,7 @@ namespace DreamLand
             player.Draw(spriteBatch);
 
             combatEngine.Draw(spriteBatch);
-
+            player_health.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
