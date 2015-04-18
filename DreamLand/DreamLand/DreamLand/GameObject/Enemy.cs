@@ -13,10 +13,10 @@ namespace DreamLand.GameObject {
 
         public Sprite Sprite { get; set; }
         private Vector2 _position;
-        private Animation _animationController;        
+        private Animation _animationController;
+        private HealthBar _bar;
 
         private Animation _idleAnim;
-
         private Animation _walkingAnim;
         private Animation JumpingAnim;
     
@@ -68,11 +68,20 @@ namespace DreamLand.GameObject {
 
             _animationController.Position = Position;
             _animationController.Update(gameTime);
+
+            _bar.Position = new Vector2(Position.X - 100, Position.Y - 100);
+            Bar.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationController.Draw(spriteBatch);
+            Bar.Draw(spriteBatch);
+        }
+
+        public HealthBar Bar {
+            get { return _bar; }
+            set { _bar = value; }
         }
     }
 

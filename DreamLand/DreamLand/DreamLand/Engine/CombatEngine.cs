@@ -23,9 +23,6 @@ namespace DreamLand.Engine {
         private KeyboardState _currentKeyboardState;
         private KeyboardState _previousKeyboardState;
 
-        private int enemyHealth = 100;
-        private int playerHealth = 100;
-
         private int elapsedTime;
         private int coldDownTime;
 
@@ -38,7 +35,18 @@ namespace DreamLand.Engine {
             _enemy.Strength = 30;
             _enemy.Defense = 3;
 
-            _defaultFont = font;
+            elapsedTime = 0;
+            coldDownTime = 250;
+        }
+
+        public void Initialize(Player player, Enemy enemy) {
+            _player = player;
+            _player.Strength = 50;
+            _player.Defense = 10;
+
+            _enemy = enemy;
+            _enemy.Strength = 30;
+            _enemy.Defense = 3;
 
             elapsedTime = 0;
             coldDownTime = 250;
@@ -89,15 +97,20 @@ namespace DreamLand.Engine {
 
             // Player Attack
             if (_currentKeyboardState.IsKeyDown(Keys.X)) {
-                if (_canHit && tryToHit(_player)) {
-                    enemyHealth -= ComputeDamage(_player, _enemy);
+                if (_canHit && tryToHit(_player) && _enemy.IsAlive) {
+                    _enemy.Health -= ComputeDamage(_player, _enemy);
+                    _enemy.Bar.Damaged(ComputeDamage(_player, _enemy));
                 }
             }
 
-            if (_canHit && tryToHit(_enemy)) {
+            if (_canHit && tryToHit(_enemy) && _enemy.IsAlive) {
 
-                playerHealth -= ComputeDamage(_enemy, _player);
+                _player.Health -= ComputeDamage(_enemy, _player);
+                _player.Bar.Damaged(ComputeDamage(_enemy, _player));
             }
+
+            if (_enemy.Health < 0)
+                _enemy.IsAlive = false;
 
         }
 
@@ -115,9 +128,10 @@ namespace DreamLand.Engine {
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.DrawString(_defaultFont, "Enemy Health: " + enemyHealth, new Vector2(0, 0), Color.Yellow);
+            //spriteBatch.DrawString(_defaultFont, "Enemy Health: " + enemyHealth, new Vector2(0, 0), Color.Yellow);
 
-            spriteBatch.DrawString(_defaultFont, "Player Health: " + playerHealth, new Vector2(400, 0), Color.Yellow);
+            //spriteBatch.DrawString(_defaultFont, "Player Health: " + playerHealth, new Vector2(400, 0), Color.Yellow);
+
         }
     }
 }

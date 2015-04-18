@@ -25,7 +25,6 @@ namespace DreamLand.Scenes {
         public void Initalize()
         {
             _currentSprite = Scenes[0].Sprite;
-            Scenes[0].Init();
         }
 
 

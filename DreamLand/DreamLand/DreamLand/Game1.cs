@@ -13,25 +13,21 @@ using DreamLand.GameObject;
 using DreamLand.Scripts;
 using DreamLand.Scenes;
 
-namespace DreamLand
-{
+namespace DreamLand {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
-    {
+    public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Player _player;
         private Enemy _enemy;
-        HealthBar _playerHealth;
 
         SceneTransition _world = new SceneTransition();
-        CombatEngine _combatEngine = new CombatEngine(); 
+        CombatEngine _combatEngine = new CombatEngine();
 
-        public Game1()
-        {
+        public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -42,8 +38,7 @@ namespace DreamLand
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize()
-        {
+        protected override void Initialize() {
             // TODO: Add your initialization logic here
             base.Initialize();
         }
@@ -52,8 +47,7 @@ namespace DreamLand
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
-        {
+        protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -64,8 +58,7 @@ namespace DreamLand
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
 
-            _world.Scenes.Add(new Wood01()
-            {
+            _world.Scenes.Add(new Wood01() {
                 Sprite = Content.Load<Texture2D>("wood 01")
             });
 
@@ -79,17 +72,26 @@ namespace DreamLand
             });
 
             _world.Initalize();
+            _player = new Player(new Sprite(playerSprite),
+                                  new Vector2(100, 360));
+            HealthBar _playerBar;
+            int offset = 10;
+            _playerBar = new HealthBar(healthbar,
+                new Vector2(0 + offset, 0 + offset), 200, 20);
+            _player.Bar = _playerBar;
 
-            _player = new Player(new Sprite(playerSprite), 
-                new Vector2(100, 360));
+            Enemy enemy = ((Wood02)_world.Scenes[1]).Enemy;
 
-            //enemy = new Enemy(new Sprite(enemySprite),
-            //    new Vector2(600, 350));
-         
-           _playerHealth = new HealthBar(healthbar, new Vector2(100, 200),200, 20);
-           
+            HealthBar _enemyBar;
+            _enemyBar = new HealthBar(healthbar,
+                new Vector2(enemy.Position.X, enemy.Position.Y - 100), 200, 20);
+            enemy.Bar = _enemyBar;
 
-//            _combatEngine.Initialize(_player, _enemy, Content.Load<SpriteFont>("Courier New"));
+            ((Wood02) _world.Scenes[1]).Player = _player;
+
+            foreach (Scene scene in _world.Scenes) {
+                scene.Init();
+            }
 
         }
 
@@ -97,8 +99,7 @@ namespace DreamLand
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void UnloadContent()
-        {
+        protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
         }
 
@@ -107,8 +108,7 @@ namespace DreamLand
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
+        protected override void Update(GameTime gameTime) {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -117,10 +117,6 @@ namespace DreamLand
             _world.Update(gameTime, _player);
 
             _player.Update(gameTime);
-            //enemy.Update(gameTime);
-           
-   
-           // _combatEngine.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -129,21 +125,14 @@ namespace DreamLand
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
+        protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-
-           // spriteBatch.Draw(background, destionationRect, sourceRect, Color.White);
             _world.Draw(spriteBatch);
-            //enemy.Draw(spriteBatch);
             _player.Draw(spriteBatch);
-
-            //combatEngine.Draw(spriteBatch);
-            //player_health.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

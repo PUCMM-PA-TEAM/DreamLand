@@ -10,25 +10,25 @@ namespace DreamLand.GameObject
     class HealthBar
     {
         Texture2D Sprite;
-        Vector2 Position;
+        Vector2 _position;
         int Health;
         int FrameHeight;
-        int HitPoints =200;
-        Rectangle rectangle;
+        int HitPoints = 200;
+        private Rectangle _sourceRect;
 
-       public HealthBar(Texture2D _sprite, Vector2 _position, int _health, int _frameHeight )
+       public HealthBar(Texture2D _sprite, Vector2 _position, int _health, int _frameHeight)
         {
             Sprite = _sprite;
-            Position = _position;
+            this._position = _position;
             Health = _health;
             FrameHeight = _frameHeight;
-            rectangle = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
+            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
 
         }
         public void Update(GameTime gameTime)
         {
-            Damaged(1);
-            rectangle = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
+            //Damaged(1);
+            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
         }
 
         public void Damaged(int damage)
@@ -37,11 +37,14 @@ namespace DreamLand.GameObject
         }
          public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite,rectangle,Color.White);
+             spriteBatch.Draw(Sprite, _position, _sourceRect, Color.White);
         }
 
-
-
+        public Vector2 Position
+        {
+             get { return _position; }
+             set { _position = value; }
+        }
 
          public int hitPoint { get; set; }
     }

@@ -25,16 +25,20 @@ namespace DreamLand.GameObject
         private Animation IdleAnim;
         private Animation WalkingAnim;
         private Animation JumpingAnim;
-
+        private HealthBar _bar;
         
-
-    
         public bool IsAlive { get; set; }
 
         public Vector2 Position
         {
             get { return _position; }
             set { _position = value; }
+        }
+
+        public HealthBar Bar
+        {
+            get { return _bar;}
+            set { _bar = value; }
         }
 
         public Animation AnimationController
@@ -59,6 +63,40 @@ namespace DreamLand.GameObject
 
             
             
+
+            int FrameWidth = 128;
+            int FrameHeigth = 128;
+
+            IdleAnim = new Animation();
+            IdleAnim.Initialize(Sprite.Texture,
+                Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
+            IdleAnim.Frames.Add(FrameHeigth * 8);
+
+            WalkingAnim = new Animation();
+            WalkingAnim.Initialize(Sprite.Texture,
+                Vector2.Zero, FrameWidth, FrameHeigth, 3, 60, Color.White, 1f, true);
+            WalkingAnim.Frames.Add(FrameHeigth * 4);
+            WalkingAnim.Frames.Add(FrameHeigth * 5);
+            WalkingAnim.Frames.Add(FrameHeigth * 6);
+
+            JumpingAnim = new Animation();
+            JumpingAnim.Initialize(Sprite.Texture,
+                 Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
+            JumpingAnim.Frames.Add(FrameHeigth * 2);
+
+            _animationController = IdleAnim;
+        }
+
+        public Player(Sprite sprite, Vector2 position, HealthBar bar) {
+            Sprite = sprite;
+            _position = position;
+            IsAlive = true;
+            Health = 100;
+            _playerState = PlayerState.Idle;
+            Speed = 5;
+
+            _bar = bar;
+
 
             int FrameWidth = 128;
             int FrameHeigth = 128;
@@ -136,17 +174,15 @@ namespace DreamLand.GameObject
             {
                 hasJumped = false;
             }
-           
+
+            //_bar.Position = new Vector2(Position.X - 50, Position.Y - 100);
+            _bar.Update(gameTime);
         }
-
-
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationController.Draw(spriteBatch);
-            //spriteBatch.Draw(Sprite.Texture, Position, 
-            //    new Rectangle(0,128*8, 128, 128),
-            //    Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            _bar.Draw(spriteBatch);
         }
     }
 }
