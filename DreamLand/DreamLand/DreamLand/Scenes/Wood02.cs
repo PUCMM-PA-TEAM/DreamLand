@@ -13,6 +13,7 @@ namespace DreamLand.Scenes {
     {
         private Player _player;
         private Enemy _enemy;
+        
         private CombatEngine _combat;
 
         public override void Init() {
