@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using DreamLand.GameObject;
 using DreamLand.Scripts;
 using DreamLand.Scenes;
+using DreamLand.Classes;
 
 namespace DreamLand {
     /// <summary>
@@ -20,6 +21,23 @@ namespace DreamLand {
     public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        enum GameState
+        {
+            MainMenu,
+            Options,
+            Playing,
+            Exit,
+            LoadGame
+        }
+
+        GameState CurrentGameState = GameState.MainMenu;
+
+        cButton btnPlay;
+        cButton btnExit;
+        cButton btnLoad;
+        int screenWidth = 800, 
+            screenHeight = 600;
 
         Player _player;
         private Enemy _enemy;
@@ -53,7 +71,26 @@ namespace DreamLand {
 
             // TODO: use this.Content to load your game content here
 
-            //  Load Player assets
+
+
+            //Start Game Button
+            btnPlay = new cButton(Content.Load<Texture2D>("StartGame"), graphics.GraphicsDevice);
+            btnPlay.setPosition(new Vector2(290, 250));
+            //Load  Button
+            btnLoad = new cButton(Content.Load<Texture2D>("LoadGame"), graphics.GraphicsDevice);
+            btnLoad.setPosition(new Vector2(290, 300));
+
+            //Exit Button
+            btnExit = new cButton(Content.Load<Texture2D>("ExitGame"), graphics.GraphicsDevice);
+            btnExit.setPosition(new Vector2(290, 350));
+            //Screen
+            //graphics.PreferredBackBufferWidth = screenWidth;
+            //graphics.PreferredBackBufferHeight = screenHeight;
+            //graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+
+            //Load Player assets
             Texture2D healthbar = Content.Load<Texture2D>("health");
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
@@ -108,17 +145,63 @@ namespace DreamLand {
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime) {
+        protected override void Update(GameTime gameTime)
+        {
             // Allows the game to exit
+
+            MouseState mouse = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            btnPlay.Update(mouse);
+            btnLoad.Update(mouse);
+            btnExit.Update(mouse);
 
-            // TODO: Add your update logic here
-            _world.Update(gameTime, _player);
+            switch (CurrentGameState)
+            {
 
-            _player.Update(gameTime);
+                case GameState.MainMenu:
+                    if (btnPlay.isClicked == true)
+                    {
+                        CurrentGameState = GameState.Playing;
+                        btnPlay.Update(mouse);
+                    }
+                    if (btnLoad.isClicked == true)
+                    {
+                        CurrentGameState = GameState.LoadGame;
+                        btnLoad.Update(mouse);
+                    }
+                    if (btnExit.isClicked == true)
+                    {
+                        CurrentGameState = GameState.Exit;
+                        btnExit.Update(mouse);
+                    }
 
-            base.Update(gameTime);
+                    break;
+                case GameState.Playing:
+                    {
+                        _world.Update(gameTime, _player);
+
+                        _player.Update(gameTime);
+                        break;
+                    }
+                case GameState.LoadGame:
+                    {
+                        CurrentGameState = GameState.Playing;
+                        break;
+                    }
+                case GameState.Exit:
+                    {
+                        this.Exit();
+                        break;
+                    }
+
+                    // TODO: Add your update logic here
+                    //_world.Update(gameTime, _player);
+
+                    //_player.Update(gameTime);
+
+                    base.Update(gameTime);
+            }
         }
 
         /// <summary>
@@ -131,8 +214,33 @@ namespace DreamLand {
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            _world.Draw(spriteBatch);
-            _player.Draw(spriteBatch);
+             switch (CurrentGameState)
+            {
+                case GameState.MainMenu:
+                    spriteBatch.Draw(Content.Load<Texture2D>("DreamLand"),new Rectangle(0,0,screenWidth,screenHeight),Color.White);
+                    btnPlay.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    btnLoad.Draw(spriteBatch);
+                    break;
+                case GameState.Playing:
+                    {
+                       _world.Draw(spriteBatch);
+                      _player.Draw(spriteBatch);
+
+                        break;
+                    }
+                case GameState.LoadGame:
+                    {
+                    
+                        break;
+                    }
+                case GameState.Exit:
+                    
+                    break;
+            }
+
+            //_world.Draw(spriteBatch);
+            //_player.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
