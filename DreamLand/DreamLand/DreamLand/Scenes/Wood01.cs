@@ -9,18 +9,23 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.Scenes {
     class Wood01 : Scene
     {
-
-        public void Init() {
+        NPC _mage;
+        public override  void  Init () {
             //x.Sprite = new Sprite(Content.Load<Texture2D>("NPC"));
+            _mage = new NPC(new Sprite(Content.Load<Texture2D>("Gandalf")),
+                new Vector2(300, 360));
+            
         }
 
-        public void Update(GameTime gameTime) {
+        public override void  Update(GameTime gameTime) {
 
-
+            _mage.Update(gameTime);
 
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public override void  Draw (SpriteBatch spriteBatch) {
+
+            _mage.Draw(spriteBatch);
 
         }
     }

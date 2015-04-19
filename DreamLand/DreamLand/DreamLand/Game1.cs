@@ -41,7 +41,7 @@ namespace DreamLand {
 
         Player _player;
         private Enemy _enemy;
-        NPC _mage;
+        
 
         SceneTransition _world = new SceneTransition();
 
@@ -96,10 +96,11 @@ namespace DreamLand {
             Texture2D healthbar = Content.Load<Texture2D>("health");
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
-            Texture2D mageSprite = Content.Load<Texture2D>("Gandalf");
+            
 
             _world.Scenes.Add(new Wood01() {
-                Sprite = Content.Load<Texture2D>("wood 01")
+                Sprite = Content.Load<Texture2D>("wood 01"),
+                Content = Content
             });
 
             _world.Scenes.Add(new Wood02() {
@@ -114,7 +115,7 @@ namespace DreamLand {
             _world.Initalize();
             _player = new Player(new Sprite(playerSprite),
                                   new Vector2(100, 360));
-            _mage = new NPC(new Sprite(mageSprite), new Vector2(300, 360));
+           
             HealthBar _playerBar;
             int offset = 10;
             _playerBar = new HealthBar(healthbar,
@@ -186,7 +187,8 @@ namespace DreamLand {
                         _world.Update(gameTime, _player);
 
                         _player.Update(gameTime);
-                        _mage.Update(gameTime);
+
+                        
                         break;
                     }
                 case GameState.LoadGame:
@@ -231,7 +233,7 @@ namespace DreamLand {
                     {
                        _world.Draw(spriteBatch);
                       _player.Draw(spriteBatch);
-                      _mage.Draw(spriteBatch);
+                       
 
                         break;
                     }
