@@ -10,11 +10,13 @@ namespace DreamLand.Scenes {
     class Wood01 : Scene
     {
         NPC _mage;
-        public override  void  Init () {
+        public override  void  Init ()
+        {
+            Sprite sprite = new Sprite(_content.Load<Texture2D>("Gandalf"));
             //x.Sprite = new Sprite(Content.Load<Texture2D>("NPC"));
-            _mage = new NPC(new Sprite(Content.Load<Texture2D>("Gandalf")),
+            _mage = new NPC(sprite,
                 new Vector2(300, 360));
-            
+
         }
 
         public override void  Update(GameTime gameTime) {

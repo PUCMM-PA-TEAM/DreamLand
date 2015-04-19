@@ -25,6 +25,7 @@ namespace DreamLand.Scenes {
         public void Initalize()
         {
             _currentSprite = Scenes[0].Sprite;
+            Scenes[_currentScene].Init();
         }
 
 
@@ -40,6 +41,7 @@ namespace DreamLand.Scenes {
                 {
                     _currentScene++;
                     _sourceRect.X = 0;
+                    Scenes[_currentScene].Init();
                 }      
             }
 
@@ -51,6 +53,7 @@ namespace DreamLand.Scenes {
                 if (_sourceRect.X < 0 && _currentScene > 0) {
                     _currentScene--;
                     _sourceRect.X = SCENE_WIDTH;
+                    Scenes[_currentScene].Init();
                 }
             }
 

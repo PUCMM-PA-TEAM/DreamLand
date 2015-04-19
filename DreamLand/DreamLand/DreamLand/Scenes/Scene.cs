@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.Scenes {
     abstract class Scene
     {
-        private Rectangle _sourceRect;
-        private Texture2D _texture2D;
-        private ContentManager _content;
+        protected Rectangle _sourceRect;
+        protected Texture2D _texture2D;
+        public ContentManager _content;
 
         public Texture2D Sprite
         {

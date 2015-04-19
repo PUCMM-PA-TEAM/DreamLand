@@ -100,16 +100,18 @@ namespace DreamLand {
 
             _world.Scenes.Add(new Wood01() {
                 Sprite = Content.Load<Texture2D>("wood 01"),
-                Content = Content
+                Content = this.Content
             });
 
             _world.Scenes.Add(new Wood02() {
                 Sprite = Content.Load<Texture2D>("wood 02"),
-                Enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 300))
+                Enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 300)),
+                //Player = _player
             });
 
-            _world.Scenes.Add(new Wood01() {
-                Sprite = Content.Load<Texture2D>("Background")
+            _world.Scenes.Add(new StarterTown() {
+                Sprite = Content.Load<Texture2D>("Background"),
+                Content = this.Content
             });
 
             _world.Initalize();
@@ -130,10 +132,6 @@ namespace DreamLand {
             enemy.Bar = _enemyBar;
 
             ((Wood02) _world.Scenes[1]).Player = _player;
-
-            foreach (Scene scene in _world.Scenes) {
-                scene.Init();
-            }
 
         }
 
