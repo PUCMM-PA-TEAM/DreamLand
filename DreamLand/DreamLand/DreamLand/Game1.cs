@@ -43,6 +43,7 @@ namespace DreamLand {
         private Enemy _enemy;
 
         SceneTransition _world = new SceneTransition();
+
         CombatEngine _combatEngine = new CombatEngine();
 
         public Game1() {
