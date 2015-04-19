@@ -20,13 +20,13 @@ namespace DreamLand.Scenes {
         }
 
         public override void  Update(GameTime gameTime) {
-
+            if(SourceRect.X < 800)
             _mage.Update(gameTime);
 
         }
 
         public override void  Draw (SpriteBatch spriteBatch) {
-
+            if (SourceRect.X < 800)
             _mage.Draw(spriteBatch);
 
         }
