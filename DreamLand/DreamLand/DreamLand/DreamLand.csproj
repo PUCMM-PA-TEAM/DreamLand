@@ -78,6 +78,7 @@
     <Compile Include="GameObject\HealthBar.cs" />
     <Compile Include="GameObject\IGameObject.cs" />
     <Compile Include="GameObject\KeyboardInputController.cs" />
+    <Compile Include="GameObject\NPC.cs" />
     <Compile Include="GameObject\Player.cs" />
     <Compile Include="GameObject\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
