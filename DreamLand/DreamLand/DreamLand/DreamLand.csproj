@@ -73,13 +73,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Character.cs" />
-    <Compile Include="Engine\CombatEngine.cs" />
+    <Compile Include="Engine\CombatSystem.cs" />
     <Compile Include="GameObject\Enemy.cs" />
     <Compile Include="GameObject\HealthBar.cs" />
     <Compile Include="GameObject\IGameObject.cs" />
     <Compile Include="GameObject\KeyboardInputController.cs" />
     <Compile Include="GameObject\NPC.cs" />
     <Compile Include="GameObject\Player.cs" />
+    <Compile Include="GameObject\Projectile.cs" />
     <Compile Include="GameObject\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

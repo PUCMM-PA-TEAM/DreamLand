@@ -9,7 +9,7 @@ namespace DreamLand.GameObject
 {
     interface IGameObject
     {
-        void Initalize();
+        void Awake();
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
     }

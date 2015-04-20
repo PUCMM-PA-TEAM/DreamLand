@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
 
 
 namespace DreamLand.GameObject
@@ -18,6 +20,7 @@ namespace DreamLand.GameObject
     class Player : Character, IGameObject
     {
         public Sprite Sprite { get; set; }
+        private ContentManager _content;
         private Vector2 _position;
         private PlayerState _playerState;
         private Animation _animationController;        
@@ -26,7 +29,12 @@ namespace DreamLand.GameObject
         private Animation WalkingAnim;
         private Animation JumpingAnim;
         private HealthBar _bar;
-        
+
+        public List<Projectile> Projectiles;
+        private TimeSpan fireTime;
+        private TimeSpan previousFireTime;
+
+        private bool canShoot;
         public bool IsAlive { get; set; }
 
         public Vector2 Position
@@ -47,6 +55,11 @@ namespace DreamLand.GameObject
             set { _animationController = value; }
         }
 
+        public ContentManager Content{
+            get { return _content; }
+            set { _content = value; } 
+        }
+
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
 
@@ -60,9 +73,6 @@ namespace DreamLand.GameObject
             Health = 100;
             _playerState = PlayerState.Idle;
             Speed = 5;
-
-            
-            
 
             int FrameWidth = 128;
             int FrameHeigth = 128;
@@ -121,7 +131,10 @@ namespace DreamLand.GameObject
             _animationController = IdleAnim;
         }
 
-        public void Initalize() {
+        public void Awake() {
+            Projectiles = new List<Projectile>();
+            fireTime = TimeSpan.FromSeconds(0.15f);
+            canShoot = true;
         }
 
         public void Update(GameTime gameTime) { 
@@ -175,14 +188,47 @@ namespace DreamLand.GameObject
                 hasJumped = false;
             }
 
-            //_bar.Position = new Vector2(Position.X - 50, Position.Y - 100);
-            _bar.Update(gameTime);
+            if (currentKeyboardState.IsKeyDown(Keys.X) && canShoot == true){
+                AddProjectile();
+                canShoot = false;
+            }
+
+            if (gameTime.TotalGameTime - previousFireTime > fireTime){
+                previousFireTime = gameTime.TotalGameTime;
+                canShoot = true;
+            }
+
+            UpdateProjectiles(gameTime);
+            _bar.UpdateHealth(Health);
+        }
+
+        private void UpdateProjectiles(GameTime gameTime){
+            for (int i = 0; i < Projectiles.Count; i++){
+                Projectiles[i].Update(gameTime);
+                if(Projectiles[i].isActive == false)
+                    Projectiles.RemoveAt(i);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationController.Draw(spriteBatch);
             _bar.Draw(spriteBatch);
+            for (int i = 0; i < Projectiles.Count; i++){
+                Projectiles[i].Draw(spriteBatch);
+            }
+        }
+
+        public void Damaged(int damage) {
+            Health -= damage;
+        }
+
+        public void AddProjectile(){
+            Projectile fireball = new Projectile();
+            fireball = new Projectile();
+            fireball.Sprite = new Sprite(Content.Load<Texture2D>("fireblast"));
+            fireball.Position = Position;
+            Projectiles.Add(fireball);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DreamLand.Scenes {
             set { _texture2D = value; }
         }
 
-        public virtual void Init()
+        public virtual void Awake()
         {
             
         }

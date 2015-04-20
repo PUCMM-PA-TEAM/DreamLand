@@ -8,11 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DreamLand.Scenes {
     class Wood03 : Scene, IGameObject{
-        public void Initalize(){
-            throw new NotImplementedException();
-        }
 
-        public override void Init() {
+        public override void Awake() {
 
         }
 
