@@ -41,6 +41,7 @@ namespace DreamLand.Scenes {
                 {
                     _currentScene++;
                     _sourceRect.X = 0;
+
                     Scenes[_currentScene].Init();
                 }      
             }

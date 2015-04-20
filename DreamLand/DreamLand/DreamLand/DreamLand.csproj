@@ -90,6 +90,7 @@
     <Compile Include="Scenes\StarterTown.cs" />
     <Compile Include="Scenes\Wood01.cs" />
     <Compile Include="Scenes\Wood02.cs" />
+    <Compile Include="Scenes\Wood03.cs" />
     <Compile Include="Scripts\Animation.cs" />
   </ItemGroup>
   <ItemGroup>

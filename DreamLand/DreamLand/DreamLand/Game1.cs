@@ -114,6 +114,11 @@ namespace DreamLand {
                 Content = this.Content
             });
 
+            _world.Scenes.Add(new Wood03() {
+                Sprite = Content.Load<Texture2D>("wood 03"),
+                Content = this.Content
+            });
+
             _world.Initalize();
             _player = new Player(new Sprite(playerSprite),
                                   new Vector2(100, 360));
