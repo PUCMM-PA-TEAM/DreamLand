@@ -40,14 +40,17 @@ namespace DreamLand {
             screenHeight = 600;
 
         Player _player;
-        private Enemy _enemy;
         
-
         SceneTransition _world = new SceneTransition();
 
-        CombatEngine _combatEngine = new CombatEngine();
-
+        
+        
+        
+        
+        
         public Game1() {
+            
+        
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //this.Components.Add(new GamerServicesComponent(this));
@@ -77,8 +80,6 @@ namespace DreamLand {
 
             // TODO: use this.Content to load your game content here
 
-
-            
             //Start Game Button
             btnPlay = new cButton(Content.Load<Texture2D>("StartGame"), graphics.GraphicsDevice);
             btnPlay.setPosition(new Vector2(290, 250));
@@ -100,17 +101,43 @@ namespace DreamLand {
             Texture2D healthbar = Content.Load<Texture2D>("health");
             Texture2D playerSprite = Content.Load<Texture2D>("Girl");
             Texture2D enemySprite = Content.Load<Texture2D>("Boss Dragon");
-            
+
+            _player = new Player(new Sprite(playerSprite),
+                      new Vector2(100, 360));
+            _player.Content = Content;
+
+            HealthBar _playerBar;
+            int offset = 10;
+            _playerBar = new HealthBar(healthbar,
+                new Vector2(0 + offset, 0 + offset), 200, 20);
+            _player.Bar = _playerBar;
+
+            Enemy enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 350));
+            enemy.Content = Content;
+
+            HealthBar _enemyBar;
+            _enemyBar = new HealthBar(healthbar,
+                new Vector2(enemy.Position.X, enemy.Position.Y - 100), 200, 20);
+            enemy.Bar = _enemyBar;
+
 
             _world.Scenes.Add(new Wood01() {
                 Sprite = Content.Load<Texture2D>("wood 01"),
                 Content = this.Content
             });
 
+           
+            
+            
+            
+            
+            
             _world.Scenes.Add(new Wood02() {
-                Sprite = Content.Load<Texture2D>("wood 02"),
-                Enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 300)),
-                //Player = _player
+            
+             Sprite = Content.Load<Texture2D>("wood 02"),
+                Enemy = enemy,
+                Player = _player,
+                Content = this.Content
             });
 
             _world.Scenes.Add(new StarterTown() {
@@ -150,24 +177,8 @@ namespace DreamLand {
 
 
             _world.Initalize();
-            _player = new Player(new Sprite(playerSprite),
-                                  new Vector2(100, 360));
-           
-            HealthBar _playerBar;
-            int offset = 10;
-            _playerBar = new HealthBar(healthbar,
-                new Vector2(0 + offset, 0 + offset), 200, 20);
-            _player.Bar = _playerBar;
-
-            Enemy enemy = ((Wood02)_world.Scenes[1]).Enemy;
-
-            HealthBar _enemyBar;
-            _enemyBar = new HealthBar(healthbar,
-                new Vector2(enemy.Position.X, enemy.Position.Y - 100), 200, 20);
-            enemy.Bar = _enemyBar;
-
-            ((Wood02) _world.Scenes[1]).Player = _player;
-
+            _player.Awake();
+            
         }
 
         /// <summary>
@@ -219,10 +230,7 @@ namespace DreamLand {
                     {
                         
                         _world.Update(gameTime, _player);
-
-                        _player.Update(gameTime);
-
-                        
+                        _player.Update(gameTime);             
                         break;
                     }
                 case GameState.LoadGame:
@@ -238,9 +246,7 @@ namespace DreamLand {
                     }
 
                     // TODO: Add your update logic here
-                    //_world.Update(gameTime, _player);
-
-                    //_player.Update(gameTime);
+                    
                     
                     base.Update(gameTime);
             }
@@ -266,6 +272,9 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
+
+
+
                        _world.Draw(spriteBatch);
                       _player.Draw(spriteBatch);
                        
@@ -282,9 +291,6 @@ namespace DreamLand {
                     
                     break;
             }
-
-            //_world.Draw(spriteBatch);
-            //_player.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

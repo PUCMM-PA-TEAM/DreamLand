@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace DreamLand.Engine {
-    class CombatEngine {
+    class CombatSystem {
         private SpriteFont _defaultFont;
         private Player _player;
         private Enemy _enemy;
@@ -99,14 +99,14 @@ namespace DreamLand.Engine {
             if (_currentKeyboardState.IsKeyDown(Keys.X)) {
                 if (_canHit && tryToHit(_player) && _enemy.IsAlive) {
                     _enemy.Health -= ComputeDamage(_player, _enemy);
-                    _enemy.Bar.Damaged(ComputeDamage(_player, _enemy));
+                    _enemy.Damaged(ComputeDamage(_player, _enemy));
                 }
             }
 
             if (_canHit && tryToHit(_enemy) && _enemy.IsAlive) {
 
                 _player.Health -= ComputeDamage(_enemy, _player);
-                _player.Bar.Damaged(ComputeDamage(_enemy, _player));
+               // _player.Damaged(ComputeDamage(_enemy, _player));
             }
 
             if (_enemy.Health < 0)

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.Scenes {
     class StarterTown : Scene {
 
-        public override void Init() {
+        public override void Awake() {
 
         }
 

@@ -60,7 +60,7 @@ namespace DreamLand.GameObject
             _animationController = _walkingAnim;
         }
 
-        public void Initalize() {
+        public void Awake() {
         }
 
         public void Update(GameTime gameTime) {            

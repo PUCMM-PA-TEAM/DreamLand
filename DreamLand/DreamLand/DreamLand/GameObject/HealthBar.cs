@@ -11,30 +11,27 @@ namespace DreamLand.GameObject
     {
         Texture2D Sprite;
         Vector2 _position;
-        int Health;
         int FrameHeight;
-        int HitPoints = 200;
         private Rectangle _sourceRect;
 
        public HealthBar(Texture2D _sprite, Vector2 _position, int _health, int _frameHeight)
         {
             Sprite = _sprite;
             this._position = _position;
-            Health = _health;
             FrameHeight = _frameHeight;
-            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
+            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, _health, FrameHeight);
 
         }
+
+        public void UpdateHealth(int health){
+            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, health, FrameHeight);
+        }
+
         public void Update(GameTime gameTime)
         {
-            //Damaged(1);
-            _sourceRect = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
+            //_sourceRect = new Rectangle(Sprite.Width, Sprite.Height, Health, FrameHeight);
         }
 
-        public void Damaged(int damage)
-        {
-            Health-= damage;
-        }
          public void Draw(SpriteBatch spriteBatch)
         {
              spriteBatch.Draw(Sprite, _position, _sourceRect, Color.White);
