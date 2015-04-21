@@ -9,52 +9,40 @@ using Microsoft.Xna.Framework.Input;
 
 namespace DreamLand.Scenes {
     class Wood03 : Scene, IGameObject{
-
-
         private Player _player;
-        Rectangle rectangle;
+        Rectangle DoorRect;
+        Rectangle PlayerRect;
+        private Game1 game;
 
-        SceneTransition _world;
-
-        public void Initalize(){
-            throw new NotImplementedException();
+        public Game1 GameProperty
+        {
+            get { return game; }
+            set { game = value; }
         }
 
 
-        public override void Awake() {
+        public void Initalize(){
 
+        }
+
+        public override void Awake() {
+            DoorRect = new Rectangle(300, 360, 150, 320);
+            
         }
 
         public override void Update(GameTime gameTime) {
 
-            rectangle = new Rectangle(300, 360, 150, 320);
-
-            //if( || Keyboard.GetState().IsKeyDown(Keys.Up))
-            //{
-            //    _world.Scenes.Add(new Castle01()
-            //    {
-
-            //        Sprite = Content.Load<Texture2D>("dungeon 03"),
-            //        Content = this.Content
-            //    }
-            //    );
-            //    _world.Scenes.Add(new Castle02()
-            //    {
-
-            //        Sprite = Content.Load<Texture2D>("dungeon 02"),
-            //        Content = this.Content
-            //    }
-            //       );
-            //    _world.Scenes.Add(new Castle03()
-            //    {
-
-            //        Sprite = Content.Load<Texture2D>("dungeon 01"),
-            //        Content = this.Content
-            //    }
-            //      );
-            //}
+            PlayerRect = new Rectangle(
+                (int)_player.Position.X + 128 / 2,
+                (int) _player.Position.Y + 128 / 2, 128, 128);
             
-
+            if(PlayerRect.Intersects(DoorRect) && Keyboard.GetState().IsKeyDown(Keys.Up)){
+                GameProperty.showDungeon = true;
+            }
+            else{
+                GameProperty.showDungeon = false;
+            }
+           
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -65,12 +53,6 @@ namespace DreamLand.Scenes {
         {
             get { return _player; }
             set { _player = value; }
-        }
-
-        public SceneTransition SceneTransition
-        {
-            get { return _world; }
-            set { _world = value; }
         }
     }
 }
