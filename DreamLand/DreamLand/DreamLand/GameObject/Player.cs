@@ -81,11 +81,6 @@ namespace DreamLand.GameObject
             int FrameWidth = 128;
             int FrameHeigth = 128;
 
-<<<<<<< HEAD
-=======
-            
-
->>>>>>> 13277e1f6c17885e06444df42902274185504b3c
             IdleAnim = new Animation();
             IdleAnim.Initialize(Sprite.Texture,
                 Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
@@ -106,11 +101,6 @@ namespace DreamLand.GameObject
             _animationController = IdleAnim;
         }
 
-<<<<<<< HEAD
-=======
-       
-
->>>>>>> 13277e1f6c17885e06444df42902274185504b3c
         public void Awake() {
             Projectiles = new List<Projectile>();
             fireTime = TimeSpan.FromSeconds(0.15f);
