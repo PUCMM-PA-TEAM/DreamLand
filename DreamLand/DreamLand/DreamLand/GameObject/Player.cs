@@ -137,8 +137,9 @@ namespace DreamLand.GameObject
             canShoot = true;
         }
 
-        public void Update(GameTime gameTime) { 
-           
+        public void Update(GameTime gameTime){
+            if (Health <= 0)
+                IsAlive = false;
            
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
