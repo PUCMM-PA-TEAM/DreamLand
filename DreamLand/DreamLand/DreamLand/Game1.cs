@@ -21,7 +21,7 @@ namespace DreamLand {
     public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         enum GameState
         {
             MainMenu,
@@ -50,6 +50,9 @@ namespace DreamLand {
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //this.Components.Add(new GamerServicesComponent(this));
+
+            
         }
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace DreamLand {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
+            
             base.Initialize();
         }
 
@@ -74,7 +78,7 @@ namespace DreamLand {
             // TODO: use this.Content to load your game content here
 
 
-
+            
             //Start Game Button
             btnPlay = new cButton(Content.Load<Texture2D>("StartGame"), graphics.GraphicsDevice);
             btnPlay.setPosition(new Vector2(290, 250));
@@ -118,6 +122,32 @@ namespace DreamLand {
                 Sprite = Content.Load<Texture2D>("wood 03"),
                 Content = this.Content
             });
+
+
+            
+
+            _world.Scenes.Add(new Castle01()
+            {
+
+                Sprite = Content.Load<Texture2D>("dungeon 03"),
+                Content = this.Content
+            }
+                );
+            _world.Scenes.Add(new Castle02()
+            {
+
+                Sprite = Content.Load<Texture2D>("dungeon 02"),
+                Content = this.Content
+            }
+               );
+            _world.Scenes.Add(new Castle03()
+            {
+
+                Sprite = Content.Load<Texture2D>("dungeon 01"),
+                Content = this.Content
+            }
+              );
+
 
             _world.Initalize();
             _player = new Player(new Sprite(playerSprite),
@@ -187,6 +217,7 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
+                        
                         _world.Update(gameTime, _player);
 
                         _player.Update(gameTime);
@@ -197,6 +228,7 @@ namespace DreamLand {
                 case GameState.LoadGame:
                     {
                         CurrentGameState = GameState.Playing;
+                       
                         break;
                     }
                 case GameState.Exit:
@@ -209,7 +241,7 @@ namespace DreamLand {
                     //_world.Update(gameTime, _player);
 
                     //_player.Update(gameTime);
-
+                    
                     base.Update(gameTime);
             }
         }
@@ -242,6 +274,7 @@ namespace DreamLand {
                     }
                 case GameState.LoadGame:
                     {
+                        
                     
                         break;
                     }

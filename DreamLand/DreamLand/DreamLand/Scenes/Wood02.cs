@@ -33,6 +33,8 @@ namespace DreamLand.Scenes {
                 _enemy.Update(gameTime);
                 _combat.Update(gameTime);
             }
+
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

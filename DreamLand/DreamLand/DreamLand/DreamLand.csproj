@@ -84,6 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Scenes\Castle01.cs" />
+    <Compile Include="Scenes\Castle02.cs" />
+    <Compile Include="Scenes\Castle03.cs" />
     <Compile Include="Scenes\cButton.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneTransition.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Scenes\Wood02.cs" />
     <Compile Include="Scenes\Wood03.cs" />
     <Compile Include="Scripts\Animation.cs" />
+    <Compile Include="Scripts\SaveLoadGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
