@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace DreamLand.Scenes {
     class Wood03 : Scene, IGameObject{
-<<<<<<< HEAD
+
 
         private Player _player;
         Rectangle rectangle;
@@ -19,8 +19,7 @@ namespace DreamLand.Scenes {
         public void Initalize(){
             throw new NotImplementedException();
         }
-=======
->>>>>>> origin/develop
+
 
         public override void Awake() {
 

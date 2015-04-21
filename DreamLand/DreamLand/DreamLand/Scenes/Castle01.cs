@@ -16,10 +16,10 @@ namespace DreamLand.Scenes
             throw new NotImplementedException();
         }
 
-        public override void Init()
-        {
+        //public override void Init()
+        //{
 
-        }
+        //}
 
         public override void Update(GameTime gameTime)
         {

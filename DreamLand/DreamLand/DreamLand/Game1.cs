@@ -40,6 +40,14 @@ namespace DreamLand {
             screenHeight = 600;
 
         Player _player;
+
+        //Pause
+        bool paused = false;
+        Texture2D pausedTexture;
+        Rectangle pausedRectangle;
+        cButton btnPlay2, btnQuit,btnSave;
+
+
         
         SceneTransition _world = new SceneTransition();
 
@@ -80,6 +88,8 @@ namespace DreamLand {
 
             // TODO: use this.Content to load your game content here
 
+            //Start Menu
+
             //Start Game Button
             btnPlay = new cButton(Content.Load<Texture2D>("StartGame"), graphics.GraphicsDevice);
             btnPlay.setPosition(new Vector2(290, 250));
@@ -90,6 +100,19 @@ namespace DreamLand {
             //Exit Button
             btnExit = new cButton(Content.Load<Texture2D>("ExitGame"), graphics.GraphicsDevice);
             btnExit.setPosition(new Vector2(290, 350));
+
+
+            //Pause Menu
+            pausedTexture = Content.Load<Texture2D>("Paused");
+            pausedRectangle = new Rectangle(0, 0, pausedTexture.Width, pausedTexture.Height);
+            btnPlay2 = new cButton(Content.Load<Texture2D>("Resume"),graphics.GraphicsDevice);
+            btnPlay2.setPosition(new Vector2(290,250));
+            btnSave = new cButton(Content.Load<Texture2D>("SaveGame"), graphics.GraphicsDevice);
+            btnSave.setPosition(new Vector2(290, 300));
+            btnQuit = new cButton(Content.Load<Texture2D>("ExitGame2"),graphics.GraphicsDevice);
+            btnQuit.setPosition(new Vector2(290,350));
+            
+
             //Screen
             //graphics.PreferredBackBufferWidth = screenWidth;
             //graphics.PreferredBackBufferHeight = screenHeight;
@@ -127,11 +150,6 @@ namespace DreamLand {
             });
 
            
-            
-            
-            
-            
-            
             _world.Scenes.Add(new Wood02() {
             
              Sprite = Content.Load<Texture2D>("wood 02"),
@@ -228,9 +246,37 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
-                        
-                        _world.Update(gameTime, _player);
-                        _player.Update(gameTime);             
+                        if (!paused)
+                        {
+
+                            
+                            if(Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            {
+                                paused = true;
+                                btnPlay2.isClicked = false;
+                            }
+
+                            _world.Update(gameTime, _player);
+                            _player.Update(gameTime);
+                        }
+                        else if(paused)
+                        {
+                            if (btnPlay2.isClicked)
+                                paused = false;
+                              
+                            if (btnQuit.isClicked)
+                                Exit();
+                            if (btnSave.isClicked)
+                                paused = false;
+                               
+
+                            btnPlay2.Update(mouse);
+                            btnQuit.Update(mouse);
+                            btnSave.Update(mouse);
+
+                        }
+                         
+         
                         break;
                     }
                 case GameState.LoadGame:
@@ -273,10 +319,17 @@ namespace DreamLand {
                 case GameState.Playing:
                     {
 
-
-
                        _world.Draw(spriteBatch);
                       _player.Draw(spriteBatch);
+
+                    if(paused)
+                    {
+                        spriteBatch.Draw(pausedTexture, pausedRectangle, Color.White);
+                        btnPlay2.Draw(spriteBatch);
+                        btnSave.Draw(spriteBatch);
+                        btnQuit.Draw(spriteBatch);
+                        
+                    }
                        
 
                         break;
