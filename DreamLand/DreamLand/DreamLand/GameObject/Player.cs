@@ -10,8 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace DreamLand.GameObject
 {
-    enum PlayerState
-    {
+    enum PlayerState{
         Idle,
         Walking,
         Dead

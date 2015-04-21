@@ -21,6 +21,7 @@ namespace DreamLand.GameObject {
             get { return _content; }
             set { _content = value; }
         }
+
         private Animation _idleAnim;
         private Animation _walkingAnim;
         private Animation JumpingAnim;
@@ -28,7 +29,6 @@ namespace DreamLand.GameObject {
 
         private int elapsedTime;
         private int coldDownTime;
-
 
         public bool IsAlive { get; set; }
 

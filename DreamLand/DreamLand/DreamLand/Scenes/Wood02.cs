@@ -86,8 +86,8 @@ namespace DreamLand.Scenes {
                     (int)playerProjectile.Position.Y,
                     100, 100);
 
-                    Rectangle rect2 = new Rectangle((int)_player.Position.X,
-                    (int)_player.Position.Y,
+                    Rectangle rect2 = new Rectangle((int)enemyProjectile.Position.X,
+                    (int)enemyProjectile.Position.Y,
                     100, 100);
 
                     if (rect1.Intersects(rect2)) {
@@ -96,12 +96,7 @@ namespace DreamLand.Scenes {
                     }
 
                 }
-
-
-
-            }
-
-            
+            } 
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

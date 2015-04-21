@@ -160,7 +160,13 @@ namespace DreamLand {
                 Sprite = Content.Load<Texture2D>("dungeon 03"),
                 Content = this.Content,
                 GameProperty =  this,
-                Player = _player
+                Player = _player,
+                Orc1 =  new Enemy(new Sprite(Content.Load<Texture2D>("little Orco")), new Vector2(700, 400)){
+                    Bar = new HealthBar(healthbar,
+                new Vector2(700, 200 - 100), 200, 20),
+                    Content =  Content
+                }
+             
             });
 
             _dungeon.Scenes.Add(new Castle02(){
