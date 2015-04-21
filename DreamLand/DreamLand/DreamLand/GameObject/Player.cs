@@ -19,6 +19,9 @@ namespace DreamLand.GameObject
 
     class Player : Character, IGameObject
     {
+        Texture2D GameOverTexture;
+        Rectangle GameOverRectangle;
+
         public Sprite Sprite { get; set; }
         private ContentManager _content;
         private Vector2 _position;
@@ -65,8 +68,10 @@ namespace DreamLand.GameObject
 
         bool hasJumped;
 
+        
         public Player(Sprite sprite, Vector2 position)
         {
+            
             Sprite = sprite;
             _position = position;
             IsAlive = true;
@@ -76,6 +81,8 @@ namespace DreamLand.GameObject
 
             int FrameWidth = 128;
             int FrameHeigth = 128;
+
+            
 
             IdleAnim = new Animation();
             IdleAnim.Initialize(Sprite.Texture,
@@ -97,44 +104,15 @@ namespace DreamLand.GameObject
             _animationController = IdleAnim;
         }
 
-        public Player(Sprite sprite, Vector2 position, HealthBar bar) {
-            Sprite = sprite;
-            _position = position;
-            IsAlive = true;
-            Health = 100;
-            _playerState = PlayerState.Idle;
-            Speed = 5;
-
-            _bar = bar;
-
-
-            int FrameWidth = 128;
-            int FrameHeigth = 128;
-
-            IdleAnim = new Animation();
-            IdleAnim.Initialize(Sprite.Texture,
-                Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
-            IdleAnim.Frames.Add(FrameHeigth * 8);
-
-            WalkingAnim = new Animation();
-            WalkingAnim.Initialize(Sprite.Texture,
-                Vector2.Zero, FrameWidth, FrameHeigth, 3, 60, Color.White, 1f, true);
-            WalkingAnim.Frames.Add(FrameHeigth * 4);
-            WalkingAnim.Frames.Add(FrameHeigth * 5);
-            WalkingAnim.Frames.Add(FrameHeigth * 6);
-
-            JumpingAnim = new Animation();
-            JumpingAnim.Initialize(Sprite.Texture,
-                 Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
-            JumpingAnim.Frames.Add(FrameHeigth * 2);
-
-            _animationController = IdleAnim;
-        }
+       
 
         public void Awake() {
             Projectiles = new List<Projectile>();
             fireTime = TimeSpan.FromSeconds(0.15f);
             canShoot = true;
+
+            GameOverTexture = Content.Load<Texture2D>("GameOver");
+            GameOverRectangle = new Rectangle(0, 0, GameOverTexture.Width, GameOverTexture.Height);
         }
 
         public void Update(GameTime gameTime){
@@ -215,6 +193,10 @@ namespace DreamLand.GameObject
         {
             _animationController.Draw(spriteBatch);
             _bar.Draw(spriteBatch);
+            if(IsAlive == false)
+            {
+                spriteBatch.Draw(GameOverTexture, GameOverRectangle, Color.White);
+            }
             for (int i = 0; i < Projectiles.Count; i++){
                 Projectiles[i].Draw(spriteBatch);
             }
