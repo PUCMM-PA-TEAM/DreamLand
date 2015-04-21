@@ -49,8 +49,7 @@ namespace DreamLand.GameObject
             set { _bar = value; }
         }
 
-        public Animation AnimationController
-        {
+        public Animation AnimationController{
             get { return _animationController; }
             set { _animationController = value; }
         }
@@ -73,40 +72,6 @@ namespace DreamLand.GameObject
             Health = 100;
             _playerState = PlayerState.Idle;
             Speed = 5;
-
-            int FrameWidth = 128;
-            int FrameHeigth = 128;
-
-            IdleAnim = new Animation();
-            IdleAnim.Initialize(Sprite.Texture,
-                Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
-            IdleAnim.Frames.Add(FrameHeigth * 8);
-
-            WalkingAnim = new Animation();
-            WalkingAnim.Initialize(Sprite.Texture,
-                Vector2.Zero, FrameWidth, FrameHeigth, 3, 60, Color.White, 1f, true);
-            WalkingAnim.Frames.Add(FrameHeigth * 4);
-            WalkingAnim.Frames.Add(FrameHeigth * 5);
-            WalkingAnim.Frames.Add(FrameHeigth * 6);
-
-            JumpingAnim = new Animation();
-            JumpingAnim.Initialize(Sprite.Texture,
-                 Vector2.Zero, FrameWidth, FrameHeigth, 1, 60, Color.White, 1f, true);
-            JumpingAnim.Frames.Add(FrameHeigth * 2);
-
-            _animationController = IdleAnim;
-        }
-
-        public Player(Sprite sprite, Vector2 position, HealthBar bar) {
-            Sprite = sprite;
-            _position = position;
-            IsAlive = true;
-            Health = 100;
-            _playerState = PlayerState.Idle;
-            Speed = 5;
-
-            _bar = bar;
-
 
             int FrameWidth = 128;
             int FrameHeigth = 128;

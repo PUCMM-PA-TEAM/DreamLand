@@ -22,8 +22,7 @@ namespace DreamLand {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        enum GameState
-        {
+        enum GameState{
             MainMenu,
             Options,
             Playing,
@@ -43,27 +42,18 @@ namespace DreamLand {
 
         //Pause
         bool paused = false;
+        public bool showDungeon = false;
+
         Texture2D pausedTexture;
         Rectangle pausedRectangle;
         cButton btnPlay2, btnQuit,btnSave;
-
-
         
         SceneTransition _world = new SceneTransition();
-
-        
-        
-        
-        
-        
+        SceneTransition _dungeon = new SceneTransition();
         public Game1() {
-            
-        
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //this.Components.Add(new GamerServicesComponent(this));
-
-            
+            //this.Components.Add(new GamerServicesComponent(this));            
         }
 
         /// <summary>
@@ -101,7 +91,6 @@ namespace DreamLand {
             btnExit = new cButton(Content.Load<Texture2D>("ExitGame"), graphics.GraphicsDevice);
             btnExit.setPosition(new Vector2(290, 350));
 
-
             //Pause Menu
             pausedTexture = Content.Load<Texture2D>("Paused");
             pausedRectangle = new Rectangle(0, 0, pausedTexture.Width, pausedTexture.Height);
@@ -112,13 +101,11 @@ namespace DreamLand {
             btnQuit = new cButton(Content.Load<Texture2D>("ExitGame2"),graphics.GraphicsDevice);
             btnQuit.setPosition(new Vector2(290,350));
             
-
             //Screen
             //graphics.PreferredBackBufferWidth = screenWidth;
             //graphics.PreferredBackBufferHeight = screenHeight;
             //graphics.ApplyChanges();
             IsMouseVisible = true;
-
 
             //Load Player assets
             Texture2D healthbar = Content.Load<Texture2D>("health");
@@ -143,13 +130,11 @@ namespace DreamLand {
                 new Vector2(enemy.Position.X, enemy.Position.Y - 100), 200, 20);
             enemy.Bar = _enemyBar;
 
-
             _world.Scenes.Add(new Wood01() {
                 Sprite = Content.Load<Texture2D>("wood 01"),
                 Content = this.Content
             });
 
-           
             _world.Scenes.Add(new Wood02() {
             
              Sprite = Content.Load<Texture2D>("wood 02"),
@@ -165,38 +150,32 @@ namespace DreamLand {
 
             _world.Scenes.Add(new Wood03() {
                 Sprite = Content.Load<Texture2D>("wood 03"),
+                Content = this.Content,
+                GameProperty = this,
+                Player =  _player
+            });
+
+            _dungeon.Scenes.Add(new Castle01(){
+
+                Sprite = Content.Load<Texture2D>("dungeon 03"),
+                Content = this.Content,
+                GameProperty =  this,
+                Player = _player
+            });
+
+            _dungeon.Scenes.Add(new Castle02(){
+                Sprite = Content.Load<Texture2D>("dungeon 02"),
                 Content = this.Content
             });
 
-
-            
-
-            _world.Scenes.Add(new Castle01()
-            {
-
-                Sprite = Content.Load<Texture2D>("dungeon 03"),
-                Content = this.Content
-            }
-                );
-            _world.Scenes.Add(new Castle02()
-            {
-
-                Sprite = Content.Load<Texture2D>("dungeon 02"),
-                Content = this.Content
-            }
-               );
-            _world.Scenes.Add(new Castle03()
-            {
-
+            _dungeon.Scenes.Add(new Castle03(){
                 Sprite = Content.Load<Texture2D>("dungeon 01"),
-                Content = this.Content
-            }
-              );
+                Content = this.Content,
+            });
 
-
+            _dungeon.Initalize();
             _world.Initalize();
-            _player.Awake();
-            
+            _player.Awake();            
         }
 
         /// <summary>
@@ -225,7 +204,6 @@ namespace DreamLand {
 
             switch (CurrentGameState)
             {
-
                 case GameState.MainMenu:
                     if (btnPlay.isClicked == true)
                     {
@@ -246,17 +224,17 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
-                        if (!paused)
-                        {
-
-                            
-                            if(Keyboard.GetState().IsKeyDown(Keys.Enter))
-                            {
+                        if (!paused){   
+                            if(Keyboard.GetState().IsKeyDown(Keys.Enter)){
                                 paused = true;
                                 btnPlay2.isClicked = false;
                             }
 
+                            if(!showDungeon)
                             _world.Update(gameTime, _player);
+                            else{
+                                _dungeon.Update(gameTime, _player);
+                            }
                             _player.Update(gameTime);
                         }
                         else if(paused)
@@ -269,31 +247,26 @@ namespace DreamLand {
                             if (btnSave.isClicked)
                                 paused = false;
                                
-
                             btnPlay2.Update(mouse);
                             btnQuit.Update(mouse);
                             btnSave.Update(mouse);
-
                         }
-                         
-         
                         break;
                     }
+
                 case GameState.LoadGame:
                     {
-                        CurrentGameState = GameState.Playing;
-                       
+                        CurrentGameState = GameState.Playing;     
                         break;
                     }
+
                 case GameState.Exit:
                     {
                         this.Exit();
                         break;
                     }
 
-                    // TODO: Add your update logic here
-                    
-                    
+                    // TODO: Add your update logic here  
                     base.Update(gameTime);
             }
         }
@@ -319,7 +292,11 @@ namespace DreamLand {
                 case GameState.Playing:
                     {
 
-                       _world.Draw(spriteBatch);
+                        if(!showDungeon)
+                            _world.Draw(spriteBatch);
+                        else{
+                            _dungeon.Draw(spriteBatch);
+                        }
                       _player.Draw(spriteBatch);
 
                     if(paused)
@@ -330,7 +307,6 @@ namespace DreamLand {
                         btnQuit.Draw(spriteBatch);
                         
                     }
-                       
 
                         break;
                     }
