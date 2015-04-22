@@ -84,6 +84,7 @@
     <Compile Include="GameObject\Player.cs" />
     <Compile Include="GameObject\Projectile.cs" />
     <Compile Include="GameObject\Sprite.cs" />
+    <Compile Include="GameObject\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

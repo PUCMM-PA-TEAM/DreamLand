@@ -38,22 +38,38 @@ namespace DreamLand {
         int screenWidth = 800, 
             screenHeight = 600;
 
+        //Save Game
+        SaveLoadGame Save;
+        SaveLoadGame Load;
         Player _player;
 
         //Pause
         bool paused = false;
         public bool showDungeon = false;
+        public bool isStatus = false;
 
         Texture2D pausedTexture;
         Rectangle pausedRectangle;
-        cButton btnPlay2, btnQuit,btnSave;
+        cButton btnPlay2, btnQuit,btnSave,btnStatus;
+
+        //PLayer Status
+        Status _playerStatus;
+       
         
         SceneTransition _world = new SceneTransition();
         SceneTransition _dungeon = new SceneTransition();
+
+        
+
+
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //this.Components.Add(new GamerServicesComponent(this));            
+            //Components.Add(new GamerServicesComponent(this)); 
+            
+   
+            
+                   
         }
 
         /// <summary>
@@ -75,7 +91,7 @@ namespace DreamLand {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
 
             //Start Menu
@@ -96,11 +112,15 @@ namespace DreamLand {
             pausedRectangle = new Rectangle(0, 0, pausedTexture.Width, pausedTexture.Height);
             btnPlay2 = new cButton(Content.Load<Texture2D>("Resume"),graphics.GraphicsDevice);
             btnPlay2.setPosition(new Vector2(290,250));
+            btnStatus = new cButton(Content.Load<Texture2D>("Status"), graphics.GraphicsDevice);
+            btnStatus.setPosition(new Vector2(290, 300));
             btnSave = new cButton(Content.Load<Texture2D>("SaveGame"), graphics.GraphicsDevice);
-            btnSave.setPosition(new Vector2(290, 300));
+            btnSave.setPosition(new Vector2(290, 350));
             btnQuit = new cButton(Content.Load<Texture2D>("ExitGame2"),graphics.GraphicsDevice);
-            btnQuit.setPosition(new Vector2(290,350));
+            btnQuit.setPosition(new Vector2(290,400));
             
+
+           
             //Screen
             //graphics.PreferredBackBufferWidth = screenWidth;
             //graphics.PreferredBackBufferHeight = screenHeight;
@@ -181,7 +201,19 @@ namespace DreamLand {
 
             _dungeon.Initalize();
             _world.Initalize();
-            _player.Awake();            
+            _player.Awake();
+
+            _playerStatus = new Status();
+            _playerStatus.Player = _player;
+            _playerStatus.Content = Content;
+            _playerStatus.Initialize();
+            
+
+
+
+
+            Save = new SaveLoadGame();
+            Load = new SaveLoadGame();
         }
 
         /// <summary>
@@ -200,7 +232,7 @@ namespace DreamLand {
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-
+           
             MouseState mouse = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -251,18 +283,24 @@ namespace DreamLand {
                             if (btnQuit.isClicked)
                                 Exit();
                             if (btnSave.isClicked)
-                                paused = false;
-                               
+                                Save.InitiateSave();
+                            if (btnStatus.isClicked)
+                                isStatus = true;
+                                
+                             
                             btnPlay2.Update(mouse);
+                            btnStatus.Update(mouse);
                             btnQuit.Update(mouse);
                             btnSave.Update(mouse);
+                            
                         }
                         break;
                     }
 
                 case GameState.LoadGame:
                     {
-                        CurrentGameState = GameState.Playing;     
+                        //CurrentGameState = GameState.Playing;     
+                        Load.InitiateLoad();
                         break;
                     }
 
@@ -309,10 +347,18 @@ namespace DreamLand {
                     {
                         spriteBatch.Draw(pausedTexture, pausedRectangle, Color.White);
                         btnPlay2.Draw(spriteBatch);
+                        btnStatus.Draw(spriteBatch);
                         btnSave.Draw(spriteBatch);
                         btnQuit.Draw(spriteBatch);
+
+                        if(isStatus == true)
+                            _playerStatus.Draw(spriteBatch);
+                            
+                            isStatus = false;
+
                         
                     }
+                    
 
                         break;
                     }

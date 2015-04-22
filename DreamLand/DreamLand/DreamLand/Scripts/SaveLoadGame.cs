@@ -24,11 +24,13 @@ namespace DreamLand.Scripts
 
 
         //Save Game
-        private void InitiateSave() {
-            if (!Guide.IsVisible) {
+        public void InitiateSave() {
+            if (!Guide.IsVisible)
+            {
                 device = null;
                 StorageDevice.BeginShowSelector(PlayerIndex.One, this.SaveToDevice, null);
             }
+            
         }
 
         void SaveToDevice(IAsyncResult result) {
@@ -58,7 +60,7 @@ namespace DreamLand.Scripts
 
 
         //Load Game
-        private void InitiateLoad() {
+        public void InitiateLoad() {
             if (!Guide.IsVisible) {
                 device = null;
                 StorageDevice.BeginShowSelector(PlayerIndex.One, this.LoadFromDevice, null);
