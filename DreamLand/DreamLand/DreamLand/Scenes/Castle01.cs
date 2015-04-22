@@ -5,22 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DreamLand.Engine;
 
 namespace DreamLand.Scenes
 {
     class Castle01 : Scene, IGameObject{
         private Player _player;
         private Game1 _game;
-
         public Enemy Orc1;
+        private CombatSystem combatSystem;
 
         public Game1 GameProperty {
             get { return _game; }
             set { _game = value; }
         }
 
-        public void Initalize(){
-
+        public override void Awake(){
+            combatSystem = new CombatSystem();
+            combatSystem.Content = Content;
+            combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
+            combatSystem.Initialize(_player, Orc1);
         }
 
         public override void Update(GameTime gameTime)
@@ -30,9 +34,11 @@ namespace DreamLand.Scenes
             }
 
             //First Sceen
-            if (SourceRect.X <= 800){
+            if (SourceRect.X <= 600){
                 if (Orc1.IsAlive){
                     Orc1.Update(gameTime);
+
+                    combatSystem.Update(gameTime);
                     //CheckPlayerProjectileCollision();
                     //CheckEnemyProjectileCollision();
                     //CheckProjectilesCollision();
@@ -43,8 +49,11 @@ namespace DreamLand.Scenes
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (SourceRect.X <= 800) {
-                if (Orc1.IsAlive)
+                if (Orc1.IsAlive){
                     Orc1.Draw(spriteBatch);
+                    combatSystem.Draw(spriteBatch);
+                }
+
             }
         }
 

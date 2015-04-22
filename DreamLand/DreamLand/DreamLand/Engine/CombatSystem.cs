@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using DreamLand.Classes;
 using DreamLand.GameObject;
+using DreamLand.Scripts;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,11 +15,11 @@ namespace DreamLand.Engine {
         private SpriteFont _defaultFont;
         private Player _player;
         private Enemy _enemy;
-
+        private List<HAnimation> explosions; 
         //private List<Enemy> _enemy;
         private Rectangle rect1;
         private Rectangle rect2;
-
+        public ContentManager Content { get; set; }
         private bool _canHit = false;
 
         private KeyboardState _currentKeyboardState;
@@ -25,19 +27,6 @@ namespace DreamLand.Engine {
 
         private int elapsedTime;
         private int coldDownTime;
-
-        public void Initialize(Player player, Enemy enemy, SpriteFont font) {
-            _player = player;
-            _player.Strength = 50;
-            _player.Defense = 10;
-
-            _enemy = enemy;
-            _enemy.Strength = 30;
-            _enemy.Defense = 3;
-
-            elapsedTime = 0;
-            coldDownTime = 250;
-        }
 
         public void Initialize(Player player, Enemy enemy) {
             _player = player;
@@ -50,6 +39,7 @@ namespace DreamLand.Engine {
 
             elapsedTime = 0;
             coldDownTime = 250;
+            explosions = new List<HAnimation>();
         }
 
         private void PlayerAttack() {
@@ -98,22 +88,41 @@ namespace DreamLand.Engine {
             // Player Attack
             if (_currentKeyboardState.IsKeyDown(Keys.X)) {
                 if (_canHit && tryToHit(_player) && _enemy.IsAlive) {
-                    _enemy.Health -= ComputeDamage(_player, _enemy);
+                   // _enemy.Health -= ComputeDamage(_player, _enemy);
                     _enemy.Damaged(ComputeDamage(_player, _enemy));
+                    AddExplosion(_enemy.Position);
                 }
             }
 
             if (_canHit && tryToHit(_enemy) && _enemy.IsAlive) {
 
-                _player.Health -= ComputeDamage(_enemy, _player);
+                _player.Damaged(ComputeDamage(_enemy, _player));
+                AddExplosion(_player.Position);
                // _player.Damaged(ComputeDamage(_enemy, _player));
             }
 
             if (_enemy.Health < 0)
                 _enemy.IsAlive = false;
 
+            UpdateExplosions(gameTime);
+ }
+        private void AddExplosion(Vector2 position) {
+            HAnimation explosion = new HAnimation();
+
+            explosion.Initialize(explosionTexture, position, 134, 134, 12, 45, Color.White, 1f, false);
+            explosions.Add(explosion);
         }
 
+        public Texture2D explosionTexture { get; set; }
+
+        private void UpdateExplosions(GameTime gameTime) {
+            for (int i = explosions.Count - 1; i >= 0; i--) {
+                explosions[i].Update(gameTime);
+                if (explosions[i].Active == false) {
+                    explosions.RemoveAt(i);
+                }
+            }
+        }
         private int ComputeDamage(Character attacker, Character other) {
             Random random = new Random();
             int strength = random.Next(
@@ -131,7 +140,9 @@ namespace DreamLand.Engine {
             //spriteBatch.DrawString(_defaultFont, "Enemy Health: " + enemyHealth, new Vector2(0, 0), Color.Yellow);
 
             //spriteBatch.DrawString(_defaultFont, "Player Health: " + playerHealth, new Vector2(400, 0), Color.Yellow);
-
+            for (int i = 0; i < explosions.Count; i++){
+                explosions[i].Draw(spriteBatch);
+            }
         }
     }
 }

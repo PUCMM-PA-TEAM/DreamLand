@@ -55,7 +55,6 @@ namespace DreamLand {
             Content.RootDirectory = "Content";
             //this.Components.Add(new GamerServicesComponent(this));            
         }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -77,7 +76,6 @@ namespace DreamLand {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
             //Start Menu
 
             //Start Game Button
@@ -275,6 +273,7 @@ namespace DreamLand {
                     // TODO: Add your update logic here  
                     base.Update(gameTime);
             }
+
         }
 
         /// <summary>
@@ -284,8 +283,10 @@ namespace DreamLand {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
 
              switch (CurrentGameState)
             {
@@ -326,7 +327,6 @@ namespace DreamLand {
                     
                     break;
             }
-
             spriteBatch.End();
             base.Draw(gameTime);
         }

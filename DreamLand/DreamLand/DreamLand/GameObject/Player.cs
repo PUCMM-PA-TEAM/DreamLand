@@ -66,7 +66,6 @@ namespace DreamLand.GameObject
 
         bool hasJumped;
 
-        
         public Player(Sprite sprite, Vector2 position)
         {
             
@@ -203,7 +202,7 @@ namespace DreamLand.GameObject
         public void AddProjectile(){
             Projectile fireball = new Projectile();
             fireball = new Projectile();
-            fireball.Sprite = new Sprite(Content.Load<Texture2D>("fireblast"));
+            fireball.Sprite = new Sprite(Content.Load<Texture2D>("fireball"));
             fireball.Position = Position;
             Projectiles.Add(fireball);
         }
