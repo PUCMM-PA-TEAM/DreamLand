@@ -23,7 +23,7 @@ namespace DreamLand.Scenes
         public override void Awake(){
             combatSystem = new CombatSystem();
             combatSystem.Content = Content;
-            combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
+            //combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
             combatSystem.Initialize(_player, Orc1);
         }
 

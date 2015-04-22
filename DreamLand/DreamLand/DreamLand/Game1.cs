@@ -27,7 +27,8 @@ namespace DreamLand {
             Options,
             Playing,
             Exit,
-            LoadGame
+            LoadGame,
+            CharacterName
         }
 
         GameState CurrentGameState = GameState.MainMenu;
@@ -59,8 +60,8 @@ namespace DreamLand {
         SceneTransition _world = new SceneTransition();
         SceneTransition _dungeon = new SceneTransition();
 
-        
 
+        Name _characterName;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -205,9 +206,11 @@ namespace DreamLand {
             _playerStatus.Player = _player;
             _playerStatus.Content = Content;
             _playerStatus.Initialize();
-            
 
 
+            _characterName = new Name();
+            _characterName.Content = Content;
+            _characterName.Initialize();
 
 
             Save = new SaveLoadGame();
@@ -301,6 +304,10 @@ namespace DreamLand {
                         Load.InitiateLoad();
                         break;
                     }
+                case GameState.CharacterName:
+                    {
+                        break;
+                    }
 
                 case GameState.Exit:
                     {
@@ -336,6 +343,8 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
+                        
+                        
 
                         if(!showDungeon)
                             _world.Draw(spriteBatch);

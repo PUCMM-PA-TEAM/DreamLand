@@ -37,7 +37,7 @@ namespace DreamLand.GameObject
             spriteBatch.DrawString(_defaultFont, "" + _player.Speed, new Vector2(220, 312), Color.Yellow);
             spriteBatch.DrawString(_defaultFont, "" + _player.Level, new Vector2(210, 363), Color.Yellow);
             spriteBatch.DrawString(_defaultFont, "" + _player.Strength, new Vector2(620,221), Color.Yellow);
-            spriteBatch.DrawString(_defaultFont, "" + _player.Damage, new Vector2(620, 271), Color.Yellow);
+            spriteBatch.DrawString(_defaultFont, "" + _player.Strength, new Vector2(620, 271), Color.Yellow);
             spriteBatch.DrawString(_defaultFont, "" + _player.Magic, new Vector2(570, 312), Color.Yellow);
 
 
