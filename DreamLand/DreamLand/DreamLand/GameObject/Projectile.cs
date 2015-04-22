@@ -47,7 +47,7 @@ namespace DreamLand.GameObject {
         }
 
         public void Draw(SpriteBatch spriteBatch){
-            spriteBatch.Draw(Sprite.Texture, Position, null, Color.White, 0f, new Vector2(0, 300), 0.05f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Sprite.Texture, Position, null, Color.White, 0f, new Vector2(0, 50), 1f, SpriteEffects.None, 0f);
         }
 
         public Sprite Sprite{

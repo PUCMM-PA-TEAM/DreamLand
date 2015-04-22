@@ -24,6 +24,9 @@ namespace DreamLand.Scenes {
 
         public void Initalize()
         {
+            foreach (Scene scene in Scenes){
+                scene.Awake();
+            }
             _currentSprite = Scenes[0].Sprite;
             Scenes[_currentScene].Awake();
         }

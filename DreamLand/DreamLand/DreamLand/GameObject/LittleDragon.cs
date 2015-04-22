@@ -40,7 +40,7 @@ namespace DreamLand.GameObject {
         public void AddProjectile() {
             Projectile fireball = new Projectile();
             fireball = new Projectile();
-            fireball.Sprite = new Sprite(Content.Load<Texture2D>("fireblast"));
+            fireball.Sprite = new Sprite(Content.Load<Texture2D>("fireball"));
             fireball.Position = Position;
             if (AnimationController.Effect == SpriteEffects.None)
                 fireball.Direction = -1;
