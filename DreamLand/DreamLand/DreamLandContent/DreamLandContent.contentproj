@@ -171,19 +171,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Status.png">
       <Name>Status</Name>
-=======
-    <Compile Include="fireball.png">
-      <Name>fireball</Name>
->>>>>>> origin/develop
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="StatusBack.png">
       <Name>StatusBack</Name>
       <Importer>TextureImporter</Importer>
@@ -193,10 +187,6 @@
   <ItemGroup>
     <Compile Include="Back.png">
       <Name>Back</Name>
-=======
-    <Compile Include="explosion.png">
-      <Name>explosion</Name>
->>>>>>> origin/develop
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
