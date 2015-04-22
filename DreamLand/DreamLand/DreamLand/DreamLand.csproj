@@ -64,6 +64,7 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -78,6 +79,7 @@
     <Compile Include="GameObject\HealthBar.cs" />
     <Compile Include="GameObject\IGameObject.cs" />
     <Compile Include="GameObject\KeyboardInputController.cs" />
+    <Compile Include="GameObject\LittleDragon.cs" />
     <Compile Include="GameObject\NPC.cs" />
     <Compile Include="GameObject\Player.cs" />
     <Compile Include="GameObject\Projectile.cs" />

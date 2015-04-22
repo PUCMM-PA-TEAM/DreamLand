@@ -122,7 +122,7 @@ namespace DreamLand {
                 new Vector2(0 + offset, 0 + offset), 200, 20);
             _player.Bar = _playerBar;
 
-            Enemy enemy = new Enemy(new Sprite(enemySprite), new Vector2(700, 350));
+            LittleDragon enemy = new LittleDragon(new Sprite(enemySprite), new Vector2(700, 350));
             enemy.Content = Content;
 
             HealthBar _enemyBar;

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace DreamLand.Scenes {
     class Wood02 : Scene {
         private Player _player;
-        private Enemy _enemy;
+        private LittleDragon _enemy;
 
         public Wood02() {
         }
@@ -107,7 +107,7 @@ namespace DreamLand.Scenes {
             }
         }
 
-        public Enemy Enemy {
+        public LittleDragon Enemy {
             get { return _enemy; }
             set { _enemy = value; }
         }
