@@ -94,7 +94,7 @@ namespace DreamLand {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            song = Content.Load<Song>("Menu Song");
+            song = Content.Load<Song>("Starting");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
 
