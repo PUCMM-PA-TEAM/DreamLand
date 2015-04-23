@@ -63,6 +63,9 @@ namespace DreamLand {
 
         Name _characterName;
 
+        //Main Menu Song
+        Song song;
+        Song forest;
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -91,7 +94,11 @@ namespace DreamLand {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            song = Content.Load<Song>("Menu Song");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
+
+            forest = Content.Load<Song>("Forest");
             // TODO: use this.Content to load your game content here
             //Start Menu
 
@@ -248,6 +255,11 @@ namespace DreamLand {
                     {
                         CurrentGameState = GameState.Playing;
                         btnPlay.Update(mouse);
+                        MediaPlayer.IsRepeating = false;
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(forest);
+                        MediaPlayer.IsRepeating = true;
+                        
                     }
                     if (btnLoad.isClicked == true)
                     {
@@ -263,7 +275,9 @@ namespace DreamLand {
                     break;
                 case GameState.Playing:
                     {
-                        if (!paused){   
+                        if (!paused){
+
+                            
                             if(Keyboard.GetState().IsKeyDown(Keys.Enter)){
                                 paused = true;
                                 btnPlay2.isClicked = false;
@@ -275,9 +289,11 @@ namespace DreamLand {
                                 _dungeon.Update(gameTime, _player);
                             }
                             _player.Update(gameTime);
+                            MediaPlayer.Resume();
                         }
                         else if(paused)
                         {
+                            MediaPlayer.Stop();
                             if (btnPlay2.isClicked)
                                 paused = false;
                               
