@@ -7,22 +7,23 @@ using DreamLand.Engine;
 using DreamLand.GameObject;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace DreamLand.Scenes {
     class Wood02 : Scene {
         private Player _player;
         private LittleDragon _enemy;
-
+        
         public Wood02() {
         }
 
         public override void Awake() {
-
+            
         }
 
         public override void Update(GameTime gameTime) {
             if (SourceRect.X >= 800) {
-
+                
                 if (_enemy.IsAlive) {
                     Vector2 position = _player.Position;
                     position.X = MathHelper.Clamp(_player.Position.X, 0, 600);

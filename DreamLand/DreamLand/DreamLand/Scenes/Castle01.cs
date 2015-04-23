@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DreamLand.Engine;
+using Microsoft.Xna.Framework.Media;
 
 namespace DreamLand.Scenes
 {
@@ -15,26 +16,39 @@ namespace DreamLand.Scenes
         public Enemy Orc1;
         private CombatSystem combatSystem;
 
+        Song song;
+
         public Game1 GameProperty {
             get { return _game; }
             set { _game = value; }
         }
 
+        public void Initialize()
+        {
+            song = Content.Load<Song>("dungeon");
+        }
+
         public override void Awake(){
             combatSystem = new CombatSystem();
             combatSystem.Content = Content;
-            //combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
+            combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
             combatSystem.Initialize(_player, Orc1);
+            
+
+           
         }
 
         public override void Update(GameTime gameTime)
         {
             if (_player.Position.X <= 0){
                 _game.showDungeon = false;
+
             }
 
+            
             //First Sceen
             if (SourceRect.X <= 600){
+                
                 if (Orc1.IsAlive){
                     Orc1.Update(gameTime);
 

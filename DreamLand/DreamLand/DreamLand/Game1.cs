@@ -66,6 +66,7 @@ namespace DreamLand {
         //Main Menu Song
         Song song;
         Song forest;
+       
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -99,6 +100,7 @@ namespace DreamLand {
             MediaPlayer.IsRepeating = true;
 
             forest = Content.Load<Song>("Forest");
+            
             // TODO: use this.Content to load your game content here
             //Start Menu
 
@@ -219,7 +221,7 @@ namespace DreamLand {
             _characterName.Content = Content;
             _characterName.Initialize();
 
-
+            
             Save = new SaveLoadGame();
             Load = new SaveLoadGame();
         }
@@ -287,6 +289,7 @@ namespace DreamLand {
                             _world.Update(gameTime, _player);
                             else{
                                 _dungeon.Update(gameTime, _player);
+                                
                             }
                             _player.Update(gameTime);
                             MediaPlayer.Resume();
@@ -366,6 +369,7 @@ namespace DreamLand {
                             _world.Draw(spriteBatch);
                         else{
                             _dungeon.Draw(spriteBatch);
+                            
                         }
                       _player.Draw(spriteBatch);
 
