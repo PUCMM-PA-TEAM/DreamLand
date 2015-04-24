@@ -50,9 +50,10 @@ namespace DreamLand {
         public bool showDungeon = false;
         public bool isStatus = false;
         public bool isAbout = false;
+        public bool isQuest = false;
         Texture2D pausedTexture;
         Rectangle pausedRectangle;
-        cButton btnPlay2, btnQuit,btnSave,btnStatus;
+        cButton btnPlay2, btnQuit,btnSave,btnStatus,btnQuests;
 
         Texture2D aboutTexture;
         Rectangle aboutRectangle;
@@ -60,6 +61,9 @@ namespace DreamLand {
 
         //PLayer Status
         Status _playerStatus;
+
+        //Player Quests
+        Quests _playerQuest;
        
         
         SceneTransition _world = new SceneTransition();
@@ -127,9 +131,11 @@ namespace DreamLand {
             pausedTexture = Content.Load<Texture2D>("Paused");
             pausedRectangle = new Rectangle(0, 0, pausedTexture.Width, pausedTexture.Height);
             btnPlay2 = new cButton(Content.Load<Texture2D>("Resume"),graphics.GraphicsDevice);
-            btnPlay2.setPosition(new Vector2(290,250));
+            btnPlay2.setPosition(new Vector2(290,200));
             btnStatus = new cButton(Content.Load<Texture2D>("Status"), graphics.GraphicsDevice);
-            btnStatus.setPosition(new Vector2(290, 300));
+            btnStatus.setPosition(new Vector2(290, 250));
+            btnQuests= new cButton(Content.Load<Texture2D>("Quests"), graphics.GraphicsDevice);
+            btnQuests.setPosition(new Vector2(290, 300));
             btnSave = new cButton(Content.Load<Texture2D>("SaveGame"), graphics.GraphicsDevice);
             btnSave.setPosition(new Vector2(290, 350));
             btnQuit = new cButton(Content.Load<Texture2D>("ExitGame2"),graphics.GraphicsDevice);
@@ -237,6 +243,9 @@ namespace DreamLand {
             _playerStatus.Content = Content;
             _playerStatus.Initialize();
 
+            _playerQuest = new Quests();
+            _playerQuest.Content = Content;
+            _playerQuest.Initialize();
 
             _characterName = new Name();
             _characterName.Content = Content;
@@ -336,12 +345,15 @@ namespace DreamLand {
                                 Save.InitiateSave();
                             if (btnStatus.isClicked)
                                 isStatus = true;
+                            if (btnQuests.isClicked)
+                                isQuest = true;
                                 
                              
                             btnPlay2.Update(mouse);
                             btnStatus.Update(mouse);
                             btnQuit.Update(mouse);
                             btnSave.Update(mouse);
+                            btnQuests.Update(mouse);
                             
                         }
                         break;
@@ -406,14 +418,24 @@ namespace DreamLand {
                         spriteBatch.Draw(pausedTexture, pausedRectangle, Color.White);
                         btnPlay2.Draw(spriteBatch);
                         btnStatus.Draw(spriteBatch);
+                        btnQuests.Draw(spriteBatch);
                         btnSave.Draw(spriteBatch);
                         btnQuit.Draw(spriteBatch);
+                        
 
                         if(isStatus == true)
+                        {
                             _playerStatus.Draw(spriteBatch);
-                            
+
                             isStatus = false;
 
+                        }
+                        if (isQuest == true)
+                        {
+                            _playerQuest.Draw(spriteBatch);
+                            isQuest = false;
+                        }
+                            
                         
                     }
                     

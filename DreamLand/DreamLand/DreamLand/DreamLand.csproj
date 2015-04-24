@@ -83,6 +83,7 @@
     <Compile Include="GameObject\NPC.cs" />
     <Compile Include="GameObject\Player.cs" />
     <Compile Include="GameObject\Projectile.cs" />
+    <Compile Include="GameObject\Quests.cs" />
     <Compile Include="GameObject\Sprite.cs" />
     <Compile Include="GameObject\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

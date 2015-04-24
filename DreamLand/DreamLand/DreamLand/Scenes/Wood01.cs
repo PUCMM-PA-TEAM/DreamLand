@@ -11,7 +11,7 @@ namespace DreamLand.Scenes {
     class Wood01 : Scene
     {
         NPC _mage;
-       
+        Player _player;
         public override  void  Awake ()
         {
             Sprite sprite = new Sprite(_content.Load<Texture2D>("Gandalf"));
@@ -26,13 +26,21 @@ namespace DreamLand.Scenes {
             if(SourceRect.X < 800)
             _mage.Update(gameTime);
             
+            
 
         }
 
         public override void  Draw (SpriteBatch spriteBatch) {
             if (SourceRect.X < 800)
             _mage.Draw(spriteBatch);
+            
 
+        }
+
+        public Player Player
+        {
+            get { return _player; }
+            set { _player = value; }
         }
     }
 }
