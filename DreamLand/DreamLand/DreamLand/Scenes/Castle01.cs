@@ -14,6 +14,8 @@ namespace DreamLand.Scenes
         private Player _player;
         private Game1 _game;
         public Enemy Orc1;
+        public Enemy Orc2;
+        public Enemy Orc3;
         private CombatSystem combatSystem;
 
         Song song;
@@ -33,6 +35,8 @@ namespace DreamLand.Scenes
             combatSystem.Content = Content;
             combatSystem.explosionTexture = Content.Load<Texture2D>("explosion");
             combatSystem.Initialize(_player, Orc1);
+            combatSystem.Initialize(_player, Orc2);
+            combatSystem.Initialize(_player, Orc3);
             
 
            
@@ -57,6 +61,16 @@ namespace DreamLand.Scenes
                     //CheckEnemyProjectileCollision();
                     //CheckProjectilesCollision();
                 }
+                if(Orc2.IsAlive)
+                {
+                    Orc2.Update(gameTime);
+                    combatSystem.Update(gameTime);
+                }
+                if (Orc3.IsAlive)
+                {
+                    Orc3.Update(gameTime);
+                    combatSystem.Update(gameTime);
+                }
             }
         }
 
@@ -67,7 +81,17 @@ namespace DreamLand.Scenes
                     Orc1.Draw(spriteBatch);
                     combatSystem.Draw(spriteBatch);
                 }
-
+                if(Orc2.IsAlive)
+                {
+                    Orc2.Draw(spriteBatch);
+                    combatSystem.Draw(spriteBatch);
+                }
+                if (Orc3.IsAlive)
+                {
+                    Orc3.Draw(spriteBatch);
+                    combatSystem.Draw(spriteBatch);
+                }
+               
             }
         }
 

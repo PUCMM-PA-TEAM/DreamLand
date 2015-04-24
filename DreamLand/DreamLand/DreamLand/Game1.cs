@@ -204,6 +204,16 @@ namespace DreamLand {
                     Bar = new HealthBar(healthbar,
                 new Vector2(700, 200 - 100), 200, 20),
                     Content =  Content
+                },
+                Orc2 = new Enemy(new Sprite(Content.Load<Texture2D>("little Orco")), new Vector2(300, 360))
+                {
+                    Bar = new HealthBar(healthbar, new Vector2(400,360-160),200,20),
+                    Content = Content
+                },
+                Orc3 = new Enemy(new Sprite(Content.Load<Texture2D>("little Orco")), new Vector2(500, 360))
+                {
+                    Bar = new HealthBar(healthbar, new Vector2(400,200-100),200,20),
+                    Content = Content
                 }
              
             });
