@@ -71,7 +71,7 @@ namespace DreamLand {
         //Main Menu Song
         Song song;
         Song forest;
-       
+        Song dead;
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -105,6 +105,7 @@ namespace DreamLand {
             MediaPlayer.IsRepeating = true;
 
             forest = Content.Load<Song>("Forest");
+            dead = Content.Load<Song>("Dead");
             
             // TODO: use this.Content to load your game content here
             //Start Menu
@@ -199,7 +200,7 @@ namespace DreamLand {
                 Content = this.Content,
                 GameProperty =  this,
                 Player = _player,
-                Orc1 =  new Enemy(new Sprite(Content.Load<Texture2D>("little Orco")), new Vector2(700, 400)){
+                Orc1 =  new Enemy(new Sprite(Content.Load<Texture2D>("little Orco")), new Vector2(700, 360)){
                     Bar = new HealthBar(healthbar,
                 new Vector2(700, 200 - 100), 200, 20),
                     Content =  Content
@@ -310,6 +311,8 @@ namespace DreamLand {
                             }
                             _player.Update(gameTime);
                             MediaPlayer.Resume();
+
+                            
                         }
                         else if(paused)
                         {
