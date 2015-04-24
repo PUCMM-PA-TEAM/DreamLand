@@ -28,7 +28,7 @@ namespace DreamLand {
             Playing,
             Exit,
             LoadGame,
-            CharacterName
+            Historia
         }
 
         GameState CurrentGameState = GameState.MainMenu;
@@ -36,6 +36,7 @@ namespace DreamLand {
         cButton btnPlay;
         cButton btnExit;
         cButton btnLoad;
+        cButton btnAbout;
         int screenWidth = 800, 
             screenHeight = 600;
 
@@ -48,10 +49,14 @@ namespace DreamLand {
         bool paused = false;
         public bool showDungeon = false;
         public bool isStatus = false;
-
+        public bool isAbout = false;
         Texture2D pausedTexture;
         Rectangle pausedRectangle;
         cButton btnPlay2, btnQuit,btnSave,btnStatus;
+
+        Texture2D aboutTexture;
+        Rectangle aboutRectangle;
+
 
         //PLayer Status
         Status _playerStatus;
@@ -110,10 +115,12 @@ namespace DreamLand {
             //Load  Button
             btnLoad = new cButton(Content.Load<Texture2D>("LoadGame"), graphics.GraphicsDevice);
             btnLoad.setPosition(new Vector2(290, 300));
-
+            //About button
+            btnAbout = new cButton(Content.Load<Texture2D>("About"), graphics.GraphicsDevice);
+            btnAbout.setPosition(new Vector2(290, 350));
             //Exit Button
             btnExit = new cButton(Content.Load<Texture2D>("ExitGame"), graphics.GraphicsDevice);
-            btnExit.setPosition(new Vector2(290, 350));
+            btnExit.setPosition(new Vector2(290, 400));
 
             //Pause Menu
             pausedTexture = Content.Load<Texture2D>("Paused");
@@ -126,6 +133,9 @@ namespace DreamLand {
             btnSave.setPosition(new Vector2(290, 350));
             btnQuit = new cButton(Content.Load<Texture2D>("ExitGame2"),graphics.GraphicsDevice);
             btnQuit.setPosition(new Vector2(290,400));
+
+            aboutTexture = Content.Load<Texture2D>("History");
+            aboutRectangle = new Rectangle(0, 0, aboutTexture.Width, aboutTexture.Height);
             
 
            
@@ -249,6 +259,7 @@ namespace DreamLand {
             btnPlay.Update(mouse);
             btnLoad.Update(mouse);
             btnExit.Update(mouse);
+            btnAbout.Update(mouse);
 
             switch (CurrentGameState)
             {
@@ -273,6 +284,12 @@ namespace DreamLand {
                         CurrentGameState = GameState.Exit;
                         btnExit.Update(mouse);
                     }
+                    if(btnAbout.isClicked == true)
+                    {
+                        CurrentGameState = GameState.Historia;
+                        isAbout = true;
+                    }
+                   
 
                     break;
                 case GameState.Playing:
@@ -323,10 +340,7 @@ namespace DreamLand {
                         Load.InitiateLoad();
                         break;
                     }
-                case GameState.CharacterName:
-                    {
-                        break;
-                    }
+                
 
                 case GameState.Exit:
                     {
@@ -359,6 +373,7 @@ namespace DreamLand {
                     btnPlay.Draw(spriteBatch);
                     btnExit.Draw(spriteBatch);
                     btnLoad.Draw(spriteBatch);
+                    btnAbout.Draw(spriteBatch);
                     break;
                 case GameState.Playing:
                     {
@@ -396,6 +411,16 @@ namespace DreamLand {
                     {
                         
                     
+                        break;
+                    }
+
+                case GameState.Historia:
+                    {
+              
+                            spriteBatch.Draw(aboutTexture, aboutRectangle, Color.White);
+                            isAbout = false;
+                            CurrentGameState = GameState.MainMenu;
+
                         break;
                     }
                 case GameState.Exit:

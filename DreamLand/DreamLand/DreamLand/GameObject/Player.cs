@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 
 namespace DreamLand.GameObject
@@ -18,6 +19,7 @@ namespace DreamLand.GameObject
 
     class Player : Character, IGameObject
     {
+        
         Texture2D GameOverTexture;
         Rectangle GameOverRectangle;
 
@@ -189,6 +191,7 @@ namespace DreamLand.GameObject
             if(IsAlive == false)
             {
                 spriteBatch.Draw(GameOverTexture, GameOverRectangle, Color.White);
+                MediaPlayer.Stop();
             }
             for (int i = 0; i < Projectiles.Count; i++){
                 Projectiles[i].Draw(spriteBatch);
